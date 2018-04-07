@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 
+import de.drewing.comic.layout.render.Renderer;
+
 public class Book {
   private String[] pagesTexts;
   private String script;
@@ -17,6 +19,7 @@ public class Book {
   private void init ()  {
     prepareScript();
     generatePages();
+    renderPages();
   }
 
   private void prepareScript() {
@@ -30,6 +33,13 @@ public class Book {
     pages = new ArrayList<Page>();
     for (final String pageText : pagesTexts) {
       pages.add(new Page(pageText));
+    }
+  }
+
+  private void renderPages() {
+    final Renderer r = new Renderer();
+    for(final Page p : pages) {
+        r.render(p);
     }
   }
 }

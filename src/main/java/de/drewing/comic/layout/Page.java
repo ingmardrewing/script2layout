@@ -46,4 +46,8 @@ public class Page{
       System.out.println("Panel sizes don't add up to 18: " + i );
     }
   }
+
+  public Panel[] getPanels() {
+    return panels.stream().toArray(Panel[]::new);
+  }
 }

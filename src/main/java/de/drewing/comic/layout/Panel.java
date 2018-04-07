@@ -3,8 +3,8 @@ package de.drewing.comic.layout;
 import java.util.regex.Pattern;
 
 public class Panel {
-  String shot;
-  int size;
+  public String shot;
+  public int size;
   private String script;
 
   Panel (final String script) {
