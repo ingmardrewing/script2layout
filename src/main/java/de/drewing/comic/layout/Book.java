@@ -3,6 +3,11 @@ package de.drewing.comic.layout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.awt.image.BufferedImage;
+
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 import de.drewing.comic.layout.render.Renderer;
 
@@ -37,9 +42,25 @@ public class Book {
   }
 
   private void renderPages() {
-    final Renderer r = new Renderer();
+    int counter = 0;
     for(final Page p : pages) {
-        r.render(p);
+      counter++;
+      if (p.ready()) {
+        final Renderer r = new Renderer(p);
+        r.renderPage();
+        final BufferedImage b = r.getImage();
+        saveRenderedPage(b, counter);
+      }
+    }
+  }
+
+  private void saveRenderedPage(final BufferedImage img, final int i) {
+   File f = new File("page"+i+".png");
+    try {
+      ImageIO.write(img, "png", f);
+    }
+    catch(IOException e) {
+      e.printStackTrace();
     }
   }
 }

@@ -20,7 +20,6 @@ public class Page{
     System.out.println("Creating page:");
     prepareScript();
     generatePanels();
-    checkSize();
     System.out.println();
   }
 
@@ -37,14 +36,12 @@ public class Page{
     }
   }
 
-  private void checkSize() {
+  boolean ready() {
     int i = 0;
     for(final Panel p : panels) {
       i += p.size;
     }
-    if (i != REQUIRED_SIZE ) {
-      System.out.println("Panel sizes don't add up to 18: " + i );
-    }
+    return i == REQUIRED_SIZE;
   }
 
   public Panel[] getPanels() {
