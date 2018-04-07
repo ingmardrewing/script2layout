@@ -15,6 +15,7 @@ public class Book {
   private String[] pagesTexts;
   private String script;
   private List<Page> pages;
+  private int renderPageCount = 0;
 
   Book (final String script) {
     this.script = script;
@@ -42,20 +43,22 @@ public class Book {
   }
 
   private void renderPages() {
-    int counter = 0;
     for(final Page p : pages) {
-      counter++;
-      if (p.ready()) {
-        final Renderer r = new Renderer(p);
-        r.renderPage();
-        final BufferedImage b = r.getImage();
-        saveRenderedPage(b, counter);
-      }
+      renderPage(p);
     }
   }
 
-  private void saveRenderedPage(final BufferedImage img, final int i) {
-   File f = new File("page"+i+".png");
+  private void renderPage(final Page p) {
+    renderPageCount++;
+    if (p.ready()) {
+      final Renderer r = new Renderer(p);
+      r.renderPage();
+      saveRenderedPage(r.getImage());
+    }
+  }
+
+  private void saveRenderedPage(final BufferedImage img) {
+   File f = new File("page"+renderPageCount+".png");
     try {
       ImageIO.write(img, "png", f);
     }
