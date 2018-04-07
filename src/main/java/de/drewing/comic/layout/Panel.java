@@ -34,4 +34,30 @@ public class Panel {
       }
     }
   }
+
+  public int calcWidth(final int stripwidth, final int gutterwidth) {
+    final int minWidth = stripwidth - 2 * (gutterwidth + (stripwidth/3));
+    switch(size) {
+      case 2:
+        return minWidth;
+      case 3:
+        return (stripwidth - gutterwidth) / 2;
+      case 4:
+        return stripwidth - (gutterwidth + minWidth);
+      default:
+        return stripwidth;
+    }
+  }
+
+  public int calcHeight(final int stripHeight, final int gutterheight) {
+    switch(size) {
+      case 12:
+        return 2 * stripHeight + gutterheight;
+      case 18:
+        return 3 * stripHeight + 2 * gutterheight;
+      default:
+        return stripHeight;
+    }
+  }
 }
+
