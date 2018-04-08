@@ -2,6 +2,7 @@ package de.drewing.comic.layout.render;
 
 import de.drewing.comic.layout.Page;
 import de.drewing.comic.layout.Panel;
+import de.drewing.comic.layout.PanelSize;
 
 import java.awt.image.BufferedImage;
 import java.awt.Color;
@@ -70,35 +71,37 @@ public class Renderer {
     panelPos = new Point(newPosX, newPosY);
   }
 
-  private float calcWidth(final int size) {
+  private float calcWidth(final PanelSize size) {
     final float minWidth = STRIP_WIDTH - 2 * (GUTTER_WIDTH + (STRIP_WIDTH/3));
     switch(size) {
-      case 2:
+      case ONE_THIRD:
         return minWidth;
-      case 3:
+      case HALF:
         return (STRIP_WIDTH - GUTTER_WIDTH) / 2;
-      case 4:
+      case TWO_THIRDS:
         return STRIP_WIDTH - (GUTTER_WIDTH + minWidth);
       default:
         return STRIP_WIDTH;
     }
   }
 
-  private float calcHeight(final int size) {
-    if (size == 12) {
+  private float calcHeight(final PanelSize size) {
+    switch(size) {
+      case DOUBLE_STRIP:
         return 2 * STRIP_HEIGHT - GUTTER_HEIGHT;
-    }
-    if (size == 18) {
+      case PAGE:
         return 3 * STRIP_HEIGHT - 2 * GUTTER_HEIGHT;
+      default:
+        return atMiddleStrip()
+          ? STRIP_HEIGHT - 2 * GUTTER_HEIGHT
+          : STRIP_HEIGHT;
     }
-    if (atMiddleStrip()) {
-      return STRIP_HEIGHT - 2 * GUTTER_HEIGHT;
-    }
-    return STRIP_HEIGHT;
   }
 
   private boolean atMiddleStrip () {
-    int val = (int) (VERTICAL_BORDER + STRIP_HEIGHT + GUTTER_HEIGHT);
-    return panelPos.y == val;
+    final int middleStripPosY = (int) (
+       VERTICAL_BORDER + STRIP_HEIGHT + GUTTER_HEIGHT
+      );
+    return panelPos.y == middleStripPosY;
   }
 }

@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class Panel {
   public String shot;
-  public int size;
+  public PanelSize size;
   private String script;
 
   Panel (final String script) {
@@ -15,7 +15,7 @@ public class Panel {
   private void init() {
     findShot();
     findSize();
-    final String result = String.format("Found %s with panelsize %d", shot, size);
+    final String result = String.format("Found %s with panelsize %d", shot, size.getSize());
     System.out.println(result);
   }
 
@@ -30,7 +30,7 @@ public class Panel {
   private void findSize() {
     for(final PanelSize s : PanelSize.values()) {
       if(s.findInText(script)) {
-        size = s.getSize();
+        size = s;
       }
     }
   }
