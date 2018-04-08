@@ -59,8 +59,8 @@ public class Renderer {
   }
 
   private void renderPanel(final Panel p, final Graphics2D g){
-    final int w = (int)calcWidth(p.size);
-    final int h = (int)calcHeight(p.size);
+    final int w = (int)calcWidth(p.getSize());
+    final int h = (int)calcHeight(p.getSize());
     g.drawRect(panelPos.x, panelPos.y, w, h);
     updatePanelPos(w,h);
   }

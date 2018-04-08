@@ -25,7 +25,7 @@ public enum PanelSize {
     return m.find();
   }
 
-  public int getSize() {
+  public int asInt() {
     return size;
   }
 }

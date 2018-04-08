@@ -39,7 +39,7 @@ public class Page{
   boolean ready() {
     int i = 0;
     for(final Panel p : panels) {
-      i += p.size.getSize();
+      i += p.getSize().asInt();
     }
     return i == REQUIRED_SIZE;
   }
