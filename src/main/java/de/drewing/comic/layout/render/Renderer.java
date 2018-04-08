@@ -28,30 +28,34 @@ public class Renderer {
   private Point panelPos = new Point(
       (int)HORIZONTAL_BORDER, (int)VERTICAL_BORDER);
   private Page page;
-  private BufferedImage image;
 
   public Renderer(final Page p) {
     this.page = p;
-    init();
-  }
-
-  private void init() {
-   image = new BufferedImage(
-         (int)PAGE_WIDTH,
-         (int)PAGE_HEIGHT,
-         BufferedImage.TYPE_INT_RGB);
   }
 
   public BufferedImage renderPage() {
-    Graphics2D g = image.createGraphics();
-    g.setPaint(new Color(255, 255, 255));
-    g.fillRect(0,0,(int)PAGE_WIDTH,(int)PAGE_HEIGHT);
-    g.setStroke(new BasicStroke(2.0f));
-    g.setPaint(new Color(0,0,0));
+    final BufferedImage image = getImage();
+    final Graphics2D g = getGraphics(image);
     for(final Panel pl : page.getPanels()) {
       renderPanel(pl, g);
     }
     return image;
+  }
+
+  private Graphics2D getGraphics(final BufferedImage image) {
+    final Graphics2D g = image.createGraphics();
+    g.setPaint(new Color(255, 255, 255));
+    g.fillRect(0,0,(int)PAGE_WIDTH,(int)PAGE_HEIGHT);
+    g.setStroke(new BasicStroke(2.0f));
+    g.setPaint(new Color(0,0,0));
+    return g;
+  }
+
+  private BufferedImage getImage() {
+   return new BufferedImage(
+         (int)PAGE_WIDTH,
+         (int)PAGE_HEIGHT,
+         BufferedImage.TYPE_INT_RGB);
   }
 
   private void renderPanel(final Panel p, final Graphics2D g){
@@ -59,16 +63,6 @@ public class Renderer {
     final int h = (int)calcHeight(p.size);
     g.drawRect( panelPos.x, panelPos.y, w, h);
     updatePanelPos(w,h);
-  }
-
-  private void updatePanelPos(final int w, final int h) {
-    int newPosX = panelPos.x + w + (int)GUTTER_WIDTH;
-    int newPosY = panelPos.y;
-    if(newPosX >= (int)HORIZONTAL_BORDER + (int)STRIP_WIDTH){
-      newPosX = (int)HORIZONTAL_BORDER;
-      newPosY += h + GUTTER_HEIGHT;
-    }
-    panelPos = new Point(newPosX, newPosY);
   }
 
   private float calcWidth(final PanelSize size) {
@@ -96,6 +90,16 @@ public class Renderer {
           ? STRIP_HEIGHT - 2 * GUTTER_HEIGHT
           : STRIP_HEIGHT;
     }
+  }
+
+  private void updatePanelPos(final int w, final int h) {
+    int newPosX = panelPos.x + w + (int)GUTTER_WIDTH;
+    int newPosY = panelPos.y;
+    if(newPosX >= (int)HORIZONTAL_BORDER + (int)STRIP_WIDTH){
+      newPosX = (int)HORIZONTAL_BORDER;
+      newPosY += h + GUTTER_HEIGHT;
+    }
+    panelPos = new Point(newPosX, newPosY);
   }
 
   private boolean atMiddleStrip () {
