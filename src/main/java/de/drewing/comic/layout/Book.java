@@ -17,7 +17,6 @@ public class Book {
   private List<String> pagesTexts;
   private String script;
   private List<Page> pages;
-  private int renderPageCount = 0;
 
   Book (final String script) {
     this.script = script;
@@ -43,27 +42,13 @@ public class Book {
       .collect(Collectors.toList());
   }
 
-  private void renderPages() {
-    pages
-      .stream()
-      .forEach(this::renderPage);
-  }
-
-  private void renderPage(final Page p) {
-    renderPageCount++;
-    if (p.ready()) {
-      final Renderer r = new Renderer(p);
-      saveRenderedPage(r.renderPage());
-    }
-  }
-
-  private void saveRenderedPage(final BufferedImage img) {
-   File f = new File("page"+renderPageCount+".png");
-    try {
-      ImageIO.write(img, "png", f);
-    }
-    catch(IOException e) {
-      e.printStackTrace();
-    }
+  List<BufferedImage> renderPages() {
+    return pages.stream()
+      .filter(p -> p.ready())
+      .map(page -> {
+        final Renderer r = new Renderer(page);
+        return r.renderPage();
+      })
+      .collect(Collectors.toList());
   }
 }
