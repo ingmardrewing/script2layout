@@ -36,9 +36,9 @@ public class Renderer {
   public BufferedImage renderPage() {
     final BufferedImage image = getImage();
     final Graphics2D g = getGraphics(image);
-    for(final Panel pl : page.getPanels()) {
-      renderPanel(pl, g);
-    }
+    page.getPanels()
+      .stream()
+      .forEach(p -> renderPanel(p, g));
     return image;
   }
 

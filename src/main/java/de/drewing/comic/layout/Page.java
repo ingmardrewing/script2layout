@@ -3,12 +3,13 @@ package de.drewing.comic.layout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Page{
   private static int REQUIRED_SIZE = 18;
 
   private String script;
-  private String[] panelTexts;
+  private List<String> panelTexts;
   private List<Panel> panels;
 
   Page (final String script ) {
@@ -24,27 +25,27 @@ public class Page{
   }
 
   private void prepareScript() {
-    final String panelSeparatorPattern = "(?i)Panel [0-9]+\\R";
-    final String[] parts = script.split(panelSeparatorPattern);
-    panelTexts = Arrays.copyOfRange(parts, 1, parts.length);
+    final String sep = "(?i)Panel [0-9]+\\R";
+    final List<String> txts = Arrays.asList(script.split(sep));
+    panelTexts = txts.subList(1, txts.size());
   }
 
   private void generatePanels() {
-    panels = new ArrayList<Panel>();
-    for (final String panelText : panelTexts) {
-      panels.add(new Panel(panelText));
-    }
+    panels = panelTexts
+      .stream()
+      .map(pt -> new Panel(pt))
+      .collect(Collectors.toList());
   }
 
   boolean ready() {
-    int i = 0;
-    for(final Panel p : panels) {
-      i += p.getSize().asInt();
-    }
+    int i = panels
+      .stream()
+      .mapToInt(p -> p.getSize().asInt())
+      .sum();
     return i == REQUIRED_SIZE;
   }
 
-  public Panel[] getPanels() {
-    return panels.stream().toArray(Panel[]::new);
+  public List<Panel> getPanels() {
+    return panels;
   }
 }

@@ -3,16 +3,18 @@ package de.drewing.comic.layout;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
-import java.awt.image.BufferedImage;
+import java.util.stream.Collectors;
 
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 import de.drewing.comic.layout.render.Renderer;
 
 public class Book {
-  private String[] pagesTexts;
+  private List<String> pagesTexts;
   private String script;
   private List<Page> pages;
   private int renderPageCount = 0;
@@ -29,23 +31,22 @@ public class Book {
   }
 
   private void prepareScript() {
-    final String ignoreCase = "(?i)";
-    final String pagesSeparatorPattern = "Page [0-9]+\\R";
-    final String[] parts = script.split(ignoreCase + pagesSeparatorPattern);
-    pagesTexts = Arrays.copyOfRange(parts, 1, parts.length);
+    final String sep = "(?i)Page [0-9]+\\R";
+    final List<String> txts = Arrays.asList(script.split(sep));
+    pagesTexts = txts.subList(1, txts.size());
   }
 
   private void generatePages() {
-    pages = new ArrayList<Page>();
-    for (final String pageText : pagesTexts) {
-      pages.add(new Page(pageText));
-    }
+    pages = pagesTexts
+      .stream()
+      .map(pt -> new Page(pt))
+      .collect(Collectors.toList());
   }
 
   private void renderPages() {
-    for(final Page p : pages) {
-      renderPage(p);
-    }
+    pages
+      .stream()
+      .forEach(p -> renderPage(p));
   }
 
   private void renderPage(final Page p) {
