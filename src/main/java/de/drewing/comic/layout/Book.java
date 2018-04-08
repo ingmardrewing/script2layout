@@ -52,8 +52,7 @@ public class Book {
     renderPageCount++;
     if (p.ready()) {
       final Renderer r = new Renderer(p);
-      r.renderPage();
-      saveRenderedPage(r.getImage());
+      saveRenderedPage(r.renderPage());
     }
   }
 
