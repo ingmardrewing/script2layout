@@ -16,7 +16,7 @@ public class Panel {
   private void init() {
     findShot();
     findSize();
-    final String result = String.format("Found %s with panelsize %d", shot.getName(), size.asInt());
+    final String result = String.format("Found %s with panelsize %d", shot.getFileName(), size.asInt());
     System.out.println(result);
   }
 

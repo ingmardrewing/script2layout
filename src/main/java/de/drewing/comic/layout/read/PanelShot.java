@@ -4,29 +4,29 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public enum PanelShot {
-  EXTREME_LONG_SHOT("extreme long shot", "long shot"),
-  LONG_SHOT("long shot", "long shot"),
-  FULL_SHOT("full shot", "full shot"),
-  AMERICAN_SHOT("american shot", "american shot"),
-  MEDIUM_SHOT("medium shot", "medium shot"),
-  CLOSE_UP("close-up", "close-up"),
-  ITALIAN_SHOT("italian shot", "italian shot"),
+  EXTREME_LONG_SHOT("extreme long shot", "extremelong.png"),
+  LONG_SHOT("long shot", "long.png"),
+  FULL_SHOT("full shot", "full.png"),
+  AMERICAN_SHOT("american shot", "american.png"),
+  MEDIUM_SHOT("medium shot", "medium.png"),
+  CLOSE_UP("close-up", "closeup.png"),
+  ITALIAN_SHOT("italian shot", "italian.png"),
 
-  AERIAL_SHOT("italian shot", "italian shot"),
-  BIRDS_EYE_SHOT("bird's-eye shot", "bird's-eye shot"),
-  LOW_ANGLE_SHOT("low angle shot", "low angle shot"),
+  AERIAL_SHOT("italian shot", "aerial.png"),
+  BIRDS_EYE_SHOT("bird's-eye shot", "birdseye.png"),
+  LOW_ANGLE_SHOT("low angle shot", "lowangle.png"),
 
-  POINT_OF_VIEW_SHOT("point of view shot", "point of view shot"),
-  OVER_THE_SHOULDER_SHOT("over the shoulder shot", "over the shoulder shot"),
-  TWO_SHOT("two shot", "two shot");
+  POINT_OF_VIEW_SHOT("point of view shot", "pointofview.png"),
+  OVER_THE_SHOULDER_SHOT("over the shoulder shot", "overtheshoulder.png"),
+  TWO_SHOT("two shot", "two.png");
 
   private Pattern pattern;
-  private String name;
+  private String fileName;
 
-  PanelShot(final String pattern, final String name){
+  PanelShot(final String pattern, final String fileName){
     final String ignoreCase = "(?i)";
     this.pattern = Pattern.compile(ignoreCase + pattern);
-    this.name = name;
+    this.fileName = fileName;
   }
 
   public boolean findInText(final String text) {
@@ -34,7 +34,7 @@ public enum PanelShot {
     return m.find();
   }
 
-  public String getName() {
-    return name;
+  public String getFileName() {
+    return fileName;
   }
 }

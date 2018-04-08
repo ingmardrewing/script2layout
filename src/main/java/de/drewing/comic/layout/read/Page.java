@@ -18,7 +18,7 @@ public class Page{
   }
 
   private void init () {
-    System.out.println("Creating page:");
+    System.out.println("Reading page:");
     prepareScript();
     generatePanels();
     System.out.println();

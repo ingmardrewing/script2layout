@@ -16,4 +16,5 @@ TODO:
   * point of view
   * over the shoulder (+ flipping when used in series)
   * two shot
+* Render panel text from script file into the corresponding panel
 * Read, scale and paste dummy image content into layouts
