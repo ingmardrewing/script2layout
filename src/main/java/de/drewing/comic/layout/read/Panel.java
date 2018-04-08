@@ -1,4 +1,4 @@
-package de.drewing.comic.layout;
+package de.drewing.comic.layout.read;
 
 import java.util.Arrays;
 import java.util.regex.Pattern;

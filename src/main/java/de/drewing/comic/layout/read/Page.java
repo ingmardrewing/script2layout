@@ -1,4 +1,4 @@
-package de.drewing.comic.layout;
+package de.drewing.comic.layout.read;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class Page{
       .collect(Collectors.toList());
   }
 
-  boolean ready() {
+  public boolean ready() {
     int i = panels
       .stream()
       .mapToInt(p -> p.getSize().asInt())

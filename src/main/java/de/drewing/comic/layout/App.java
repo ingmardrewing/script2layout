@@ -2,6 +2,7 @@ package de.drewing.comic.layout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import java.io.FileReader;
 import java.io.FileNotFoundException;
@@ -12,28 +13,33 @@ import javax.imageio.ImageIO;
 
 import java.awt.image.BufferedImage;
 
-public class App{
+import de.drewing.comic.layout.read.Book;
+import de.drewing.comic.layout.read.Page;
+import de.drewing.comic.layout.render.Renderer;
 
+public class App{
   static String scriptFilename;
+  static String script = "";
   static int pagecounter = 0;
-  static List<String> scriptLines = new ArrayList<String>();
-  static List<BufferedImage> pages;
+  static List<Page> pages;
+  static List<BufferedImage> renderedPages;
 
   public static void main(String[] args) {
     scriptFilename = args[0];
-    readScriptLines();
+    readScript();
     createPages();
+    renderPages();
     savePagesAsImages();
   }
 
-  static void readScriptLines() {
+  static void readScript() {
     try {
       FileReader f = new FileReader(scriptFilename);
       BufferedReader b = new BufferedReader(f);
 
       String line;
       while((line = b.readLine()) != null){
-        scriptLines.add(line);
+        script += line + "\n";
       }
     }
     catch(FileNotFoundException e) {
@@ -45,17 +51,23 @@ public class App{
   }
 
   static void createPages() {
-    String script = "";
-    for (String s : scriptLines){
-      script += s + "\n";
-    }
     final Book b = new Book(script);
-    pages = b.renderPages();
+    pages = b.generatePages();
+  }
+
+  static void renderPages() {
+    renderedPages = pages.stream()
+      .filter(p -> p.ready())
+      .map(page -> {
+        final Renderer r = new Renderer(page);
+        return r.renderPage();
+      })
+      .collect(Collectors.toList());
   }
 
   static void savePagesAsImages() {
-    if( pages != null) {
-     pages
+    if( renderedPages != null) {
+      renderedPages
         .stream()
         .forEach(App::saveRenderedPage);
     }

@@ -1,8 +1,8 @@
 package de.drewing.comic.layout.render;
 
-import de.drewing.comic.layout.Page;
-import de.drewing.comic.layout.Panel;
-import de.drewing.comic.layout.PanelSize;
+import de.drewing.comic.layout.read.Page;
+import de.drewing.comic.layout.read.Panel;
+import de.drewing.comic.layout.read.PanelSize;
 
 import java.awt.image.BufferedImage;
 import java.awt.Color;
