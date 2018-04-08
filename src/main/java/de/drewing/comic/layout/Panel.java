@@ -12,6 +12,13 @@ public class Panel {
     init();
   }
 
+  private void init() {
+    findShot();
+    findSize();
+    final String result = String.format("Found %s with panelsize %d", shot.getName(), size.asInt());
+    System.out.println(result);
+  }
+
   public String getScript() {
     return script;
   }
@@ -22,13 +29,6 @@ public class Panel {
 
   public PanelShot getShot() {
     return shot;
-  }
-
-  private void init() {
-    findShot();
-    findSize();
-    final String result = String.format("Found %s with panelsize %d", shot.getName(), size.asInt());
-    System.out.println(result);
   }
 
   private void findShot() {
