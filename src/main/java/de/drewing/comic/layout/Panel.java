@@ -1,5 +1,6 @@
 package de.drewing.comic.layout;
 
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class Panel {
@@ -32,21 +33,19 @@ public class Panel {
   }
 
   private void findShot() {
-    for(final PanelShot s : PanelShot.values()) {
-      if(s.findInText(script)) {
-        shot = s;
-        break;
-      }
-    }
+    shot = Arrays.asList(PanelShot.values())
+      .stream()
+      .filter(s -> s.findInText(script))
+      .findFirst()
+      .get();
   }
 
   private void findSize() {
-    for(final PanelSize s : PanelSize.values()) {
-      if(s.findInText(script)) {
-        size = s;
-        break;
-      }
-    }
+    size = Arrays.asList(PanelSize.values())
+      .stream()
+      .filter(s -> s.findInText(script))
+      .findFirst()
+      .get();
   }
 }
 

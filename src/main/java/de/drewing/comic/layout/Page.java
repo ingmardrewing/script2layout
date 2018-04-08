@@ -33,7 +33,7 @@ public class Page{
   private void generatePanels() {
     panels = panelTexts
       .stream()
-      .map(pt -> new Panel(pt))
+      .map(Panel::new)
       .collect(Collectors.toList());
   }
 

@@ -39,14 +39,14 @@ public class Book {
   private void generatePages() {
     pages = pagesTexts
       .stream()
-      .map(pt -> new Page(pt))
+      .map(Page::new)
       .collect(Collectors.toList());
   }
 
   private void renderPages() {
     pages
       .stream()
-      .forEach(p -> renderPage(p));
+      .forEach(this::renderPage);
   }
 
   private void renderPage(final Page p) {
