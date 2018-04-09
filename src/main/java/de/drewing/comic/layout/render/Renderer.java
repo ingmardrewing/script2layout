@@ -122,15 +122,6 @@ public class Renderer {
     return panelPos.y == middleStripPosY;
   }
 
-  /**
-   * scale image
-   *
-   * @param sbi image to scale
-   * @param imageType type of image
-   * @param dWidth width of destination image
-   * @param dHeight height of destination image
-   * @return scaled image
-   */
   private static BufferedImage scale(BufferedImage source, int dWidth, int dHeight) {
       if(source != null) {
         BufferedImage dest
