@@ -11,14 +11,16 @@ public class Page{
   private String script;
   private List<String> panelTexts;
   private List<Panel> panels;
+  private int number;
 
-  Page (final String script ) {
+  Page (final String script, final int number) {
     this.script = script;
+    this.number = number;
     init();
   }
 
   private void init () {
-    System.out.println("Reading page:");
+    System.out.println("Reading page:" + number);
     prepareScript();
     generatePanels();
     System.out.println();
@@ -35,6 +37,10 @@ public class Page{
       .stream()
       .map(Panel::new)
       .collect(Collectors.toList());
+  }
+
+  public int number() {
+    return number;
   }
 
   public boolean ready() {

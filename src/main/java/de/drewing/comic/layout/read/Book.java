@@ -3,7 +3,6 @@ package de.drewing.comic.layout.read;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class Book {
   private List<String> pagesTexts;
@@ -16,10 +15,13 @@ public class Book {
 
   public List<Page> generatePages() {
     prepareScript();
-    return pagesTexts
-      .stream()
-      .map(Page::new)
-      .collect(Collectors.toList());
+    int i = 0;
+    pages = new ArrayList<Page>();
+    for(final String txt : pagesTexts){
+      pages.add(new Page(txt,i));
+      i++;
+    }
+    return pages;
   }
 
   private void prepareScript() {

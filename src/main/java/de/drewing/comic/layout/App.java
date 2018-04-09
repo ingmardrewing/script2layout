@@ -22,14 +22,12 @@ public class App{
   static String script = "";
   static int pagecounter = 0;
   static List<Page> pages;
-  static List<BufferedImage> renderedPages;
 
   public static void main(String[] args) {
     scriptFilename = args[0];
     readScript();
     createPages();
-    renderPages();
-    savePagesAsImages();
+    renderAndSavePages();
   }
 
   static void readScript() {
@@ -55,26 +53,22 @@ public class App{
     pages = b.generatePages();
   }
 
-  static void renderPages() {
-    renderedPages = pages.stream()
-      .filter(p -> p.ready())
-      .map(page -> {
-        final Renderer r = new Renderer(page);
-        return r.renderPage();
-      })
-      .collect(Collectors.toList());
+  static void renderAndSavePages() {
+    pages.stream()
+      .forEach(page ->{
+        if(page.ready()){
+          final Renderer r = new Renderer(page);
+          App.saveRenderedPage(r.renderPage(),page.number());
+        }
+        else {
+          System.out.println("Page "+page.number()+" can't be rendered,"
+              +" due to wrong panel sizes.");
+        }
+      });
   }
 
-  static void savePagesAsImages() {
-    if( renderedPages != null) {
-      renderedPages
-        .stream()
-        .forEach(App::saveRenderedPage);
-    }
-  }
-
-  static void saveRenderedPage(final BufferedImage img) {
-    File f = new File("page"+(App.pagecounter++)+".png");
+  static void saveRenderedPage(final BufferedImage img, final int nr) {
+    File f = new File("page"+nr+".png");
     try {
       ImageIO.write(img, "png", f);
     }
