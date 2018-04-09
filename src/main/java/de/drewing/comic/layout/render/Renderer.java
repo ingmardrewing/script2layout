@@ -70,6 +70,9 @@ public class Renderer {
     if(p.hasImage()){
       final int min = Math.min(w, h);
       final BufferedImage img = Renderer.scale(p.getImage(), min, min);
+      final int dx = w/2 - min/2;
+      final int dy = h/2 - min/2;
+      g.drawImage(img,panelPos.x + dx, panelPos.y +dy, null);
     }
     g.drawRect(panelPos.x, panelPos.y, w, h);
     updatePanelPos(w,h);
