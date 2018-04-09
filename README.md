@@ -3,3 +3,4 @@
 
 TODO:
 * Define various key word patterns for shot assignment
+* Add Tests and comments
