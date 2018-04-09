@@ -34,7 +34,7 @@ public enum PanelShot {
     return m.find();
   }
 
-  public String getFileName() {
-    return fileName;
+  public String getPathAndName() {
+    return "images/" + fileName;
   }
 }

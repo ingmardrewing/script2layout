@@ -3,6 +3,10 @@ package de.drewing.comic.layout.read;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.IOException;
+
 public class Panel {
   private PanelShot shot;
   private PanelSize size;
@@ -16,7 +20,7 @@ public class Panel {
   private void init() {
     findShot();
     findSize();
-    final String result = String.format("Found %s with panelsize %d", shot.getFileName(), size.asInt());
+    final String result = String.format("Found %s with panelsize %d", shot.getPathAndName(), size.asInt());
     System.out.println(result);
   }
 
@@ -30,6 +34,25 @@ public class Panel {
 
   public PanelShot getShot() {
     return shot;
+  }
+
+  public boolean hasImage() {
+    return shot != null;
+  }
+
+  public BufferedImage getImage() {
+    if(hasImage()) {
+      final String pathAndName = shot.getPathAndName();
+      try {
+        return ImageIO.read(getClass()
+          .getClassLoader()
+          .getResource(pathAndName));
+      }
+      catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    return null;
   }
 
   private void findShot() {

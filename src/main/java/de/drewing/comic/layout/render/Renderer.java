@@ -10,6 +10,9 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
+
 public class Renderer {
 
   private static final float PAGE_WIDTH = 2200.0f;
@@ -59,6 +62,9 @@ public class Renderer {
   }
 
   private void renderPanel(final Panel p, final Graphics2D g){
+    if(p.hasImage()){
+      final BufferedImage img = p.getImage();
+    }
     final int w = (int)calcWidth(p.getSize());
     final int h = (int)calcHeight(p.getSize());
     g.drawRect(panelPos.x, panelPos.y, w, h);
