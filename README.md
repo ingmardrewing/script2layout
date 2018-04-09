@@ -2,4 +2,4 @@
 ## a simple tool translating text output from scrivener to basic comic panel layouts
 
 TODO:
-* Define various key word patterns for shot assignment
+  * Add more shots and variations

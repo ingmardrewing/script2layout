@@ -4,7 +4,7 @@
   <groupId>de.drewing.comic.layout</groupId>
   <artifactId>script2layout</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>script2layout</name>
   <url>http://maven.apache.org</url>
   <properties>
