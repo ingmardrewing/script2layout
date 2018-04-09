@@ -68,7 +68,8 @@ public class App{
   }
 
   static void saveRenderedPage(final BufferedImage img, final int nr) {
-    File f = new File("page"+nr+".png");
+    final String fileName = "page"+String.format("%03d", nr)+".png";
+    File f = new File(fileName);
     try {
       ImageIO.write(img, "png", f);
     }
