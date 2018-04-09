@@ -4,6 +4,8 @@ import de.drewing.comic.layout.read.Page;
 import de.drewing.comic.layout.read.Panel;
 import de.drewing.comic.layout.read.PanelSize;
 
+import java.lang.Math;
+
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 import java.awt.BasicStroke;
@@ -12,6 +14,7 @@ import java.awt.Point;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
+import java.awt.geom.AffineTransform;
 
 public class Renderer {
 
@@ -62,11 +65,12 @@ public class Renderer {
   }
 
   private void renderPanel(final Panel p, final Graphics2D g){
-    if(p.hasImage()){
-      final BufferedImage img = p.getImage();
-    }
     final int w = (int)calcWidth(p.getSize());
     final int h = (int)calcHeight(p.getSize());
+    if(p.hasImage()){
+      final int min = Math.min(w, h);
+      final BufferedImage img = Renderer.scale(p.getImage(), min, min);
+    }
     g.drawRect(panelPos.x, panelPos.y, w, h);
     updatePanelPos(w,h);
   }
@@ -113,5 +117,28 @@ public class Renderer {
        VERTICAL_BORDER + STRIP_HEIGHT + GUTTER_HEIGHT
       );
     return panelPos.y == middleStripPosY;
+  }
+
+  /**
+   * scale image
+   *
+   * @param sbi image to scale
+   * @param imageType type of image
+   * @param dWidth width of destination image
+   * @param dHeight height of destination image
+   * @return scaled image
+   */
+  private static BufferedImage scale(BufferedImage source, int dWidth, int dHeight) {
+      if(source != null) {
+        BufferedImage dest
+          = new BufferedImage(dWidth, dHeight, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = dest.createGraphics();
+        final float scaleX = source.getWidth() / dWidth;
+        final float scaleY = source.getHeight() / dHeight;
+        AffineTransform at = AffineTransform.getScaleInstance(scaleX, scaleY);
+        g.drawRenderedImage(source, at);
+        return dest;
+      }
+      return null;
   }
 }
