@@ -2,38 +2,49 @@ package de.drewing.comic.layout.read;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.ArrayList;
+import java.util.List;
 
 public enum PanelShot {
-  EXTREME_LONG_SHOT("extreme long shot", "extremelong.png"),
-  LONG_SHOT("long shot", "long.png"),
-  FULL_SHOT("full shot", "full.png"),
-  AMERICAN_SHOT("american shot", "american.png"),
-  MEDIUM_SHOT("medium shot", "medium.png"),
-  CLOSE_UP("close-up", "closeup.png"),
-  ITALIAN_SHOT("italian shot", "italian.png"),
+  EXTREME_LONG_SHOT("extremelong.png", "extreme long shot"),
+  LONG_SHOT("long.png", "long shot"),
+  FULL_SHOT("full.png", "full shot"),
+  AMERICAN_SHOT("american.png", "american shot"),
+  MEDIUM_SHOT("medium.png", "medium shot"),
+  CLOSE_UP("closeup.png", "close-up", "closeup"),
+  ITALIAN_SHOT("italian.png", "italian shot"),
 
-  AERIAL_SHOT("aerial shot", "aerial.png"),
-  BIRDS_EYE_SHOT("bird's-eye shot", "birdseye.png"),
-  LOW_ANGLE_SHOT("low angle shot", "lowangle.png"),
+  AERIAL_SHOT("aerial.png", "aerial shot", "crane shot"),
+  BIRDS_EYE_SHOT("birdseye.png", "bird's-eye shot", "birds-eye shot", "god"),
+  LOW_ANGLE_SHOT("lowangle.png", "low angle shot"),
 
-  POINT_OF_VIEW_SHOT("point of view shot", "pointofview.png"),
-  OVER_THE_SHOULDER_SHOT("over the shoulder shot", "overtheshoulder.png"),
-  TWO_SHOT("two shot", "two.png"),
+  POINT_OF_VIEW_SHOT("pointofview.png", "point of view shot" , "pov"),
+  OVER_THE_SHOULDER_SHOT_FLIPPED("overtheshoulderflip.png", "over the shoulder shot flipped", "over the shoulder flipped", "ots flipped"),
+  OVER_THE_SHOULDER_SHOT("overtheshoulder.png", "over the shoulder shot", "over the shoulder", "ots"),
+  TWO_SHOT("two.png", "two shot"),
 
-  DEFAULT("--x--nonexistent--x--", "default.png");
+  DEFAULT("default.png");
 
-  private Pattern pattern;
+  private List<Pattern> patterns;
   private String fileName;
 
-  PanelShot(final String pattern, final String fileName){
+  PanelShot(final String fileName, final String... patternsParam){
+    patterns = new ArrayList<Pattern>();
     final String ignoreCase = "(?i)";
-    this.pattern = Pattern.compile(ignoreCase + pattern);
+    for (final String p : patternsParam){
+      patterns.add(Pattern.compile(ignoreCase + p));
+    }
     this.fileName = fileName;
   }
 
   public boolean findInText(final String text) {
-    final Matcher m = pattern.matcher(text);
-    return m.find();
+    for (final Pattern p : patterns) {
+      final Matcher m = p.matcher(text);
+      if(m.find()){
+        return true;
+      }
+    }
+    return false;
   }
 
   public String getPathAndName() {

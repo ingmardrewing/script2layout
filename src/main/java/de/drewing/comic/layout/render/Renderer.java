@@ -90,7 +90,7 @@ public class Renderer {
     g.setFont(new Font("Arial", Font.PLAIN, 32));
     int ymove = 0;
     for ( String s : p.getScriptWithLineLength(30)){
-      g.drawString(s, panelPos.x + 5, panelPos.y + 30 + ymove);
+      g.drawString(s, panelPos.x + 15, panelPos.y + 40 + ymove);
       ymove += 32;
     }
     g.setPaint(new Color(0, 0, 0));

@@ -7,7 +7,7 @@ public enum PanelSize {
 
   ONE_THIRD("one third size", 2),
   HALF("half size", 3),
-  TWO_THIRDS("two thirds size", 4),
+  TWO_THIRDS("two thirds? size", 4),
   DOUBLE_STRIP("double strip size", 12),
   STRIP("strip size", 6),
   PAGE("page size", 18);

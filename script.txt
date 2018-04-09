@@ -41,3 +41,20 @@ One third size, full shot
 It's Ruby!
 RUBY
 Looks like you could use a little help.
+
+PAGE 3
+PANEL 1
+Page size, bird's-eye shot
+Master Branch and Eezer are beset by the alien forces. Their defensive efforts are more or less hopeless.
+PAGE 4
+PANEL 1
+Two thirds size, over the shoulder
+PANEL 2
+One third size, closeup
+PANEL 3
+One third size, medium shot
+PANEL 4
+Two third size, ots flipped
+PANEL 5
+Strip size, crane shot
+Ada, Ruby, Bram and the army of clients are fighting their way into the abode.
