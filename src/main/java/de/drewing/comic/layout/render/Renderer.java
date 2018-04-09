@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Font;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -67,6 +68,14 @@ public class Renderer {
   private void renderPanel(final Panel p, final Graphics2D g){
     final int w = (int)calcWidth(p.getSize());
     final int h = (int)calcHeight(p.getSize());
+
+		renderDummyImage(g,p,w,h);
+		renderText(g, p);
+    g.drawRect(panelPos.x, panelPos.y, w, h);
+    updatePanelPos(w,h);
+  }
+
+	private void renderDummyImage(final Graphics2D g, final Panel p, final int w, final int h){
     if(p.hasImage()){
       final int min = Math.min(w, h);
       final BufferedImage img = Renderer.scale(p.getImage(), min, min);
@@ -74,9 +83,18 @@ public class Renderer {
       final int dy = h/2 - min/2;
       g.drawImage(img,panelPos.x + dx, panelPos.y +dy, null);
     }
-    g.drawRect(panelPos.x, panelPos.y, w, h);
-    updatePanelPos(w,h);
-  }
+	}
+
+	private void renderText(final Graphics2D g, final Panel p){
+    g.setPaint(new Color(153, 153, 153));
+    g.setFont(new Font("Arial", Font.PLAIN, 32));
+    int ymove = 0;
+    for ( String s : p.getScriptWithLineLength(30)){
+      g.drawString(s, panelPos.x + 5, panelPos.y + 30 + ymove);
+      ymove += 32;
+    }
+    g.setPaint(new Color(0, 0, 0));
+	}
 
   private float calcWidth(final PanelSize size) {
     final float minWidth = STRIP_WIDTH - 2 * (GUTTER_WIDTH + (STRIP_WIDTH/3));

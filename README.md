@@ -2,5 +2,4 @@
 ## a simple tool translating text output from scrivener to basic comic panel layouts
 
 TODO:
-* Render panel text from script file into the corresponding panel
 * Define various key word patterns for shot assignment

@@ -1,6 +1,8 @@
 package de.drewing.comic.layout.read;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import java.awt.image.BufferedImage;
@@ -26,6 +28,14 @@ public class Panel {
 
   public String getScript() {
     return script;
+  }
+
+  public List<String> getScriptWithLineLength(final int size) {
+    List<String> ret = new ArrayList<String>((script.length() + size - 1) / size);
+    for (int start = 0; start < script.length(); start += size) {
+        ret.add(script.substring(start, Math.min(script.length(), start + size)));
+    }
+    return ret;
   }
 
   public PanelSize getSize() {
