@@ -3,4 +3,4 @@
 
 TODO:
 * Render panel text from script file into the corresponding panel
-* Read, scale and paste dummy image content into layouts
+* Define various key word patterns for shot assignment
