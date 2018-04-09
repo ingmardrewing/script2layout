@@ -145,8 +145,10 @@ public class Renderer {
         BufferedImage dest
           = new BufferedImage(dWidth, dHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = dest.createGraphics();
-        final float scaleX = source.getWidth() / dWidth;
-        final float scaleY = source.getHeight() / dHeight;
+        final float scaleX = (float)dWidth / 1000.0f ;
+        final float scaleY =  (float)dHeight/ 1000.0f ;
+        System.out.println("scaleY " + scaleY);
+        System.out.println("scaleX " + scaleX);
         AffineTransform at = AffineTransform.getScaleInstance(scaleX, scaleY);
         g.drawRenderedImage(source, at);
         return dest;
