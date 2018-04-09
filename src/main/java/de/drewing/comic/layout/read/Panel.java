@@ -20,8 +20,8 @@ public class Panel {
   }
 
   private void init() {
-    findShot();
-    findSize();
+    shot = findShot();
+    size = findSize();
     final String result = String.format("Found %s with panelsize %d", shot.getPathAndName(), size.asInt());
     System.out.println(result);
   }
@@ -65,20 +65,22 @@ public class Panel {
     return null;
   }
 
-  private void findShot() {
-    shot = Arrays.asList(PanelShot.values())
-      .stream()
-      .filter(s -> s.findInText(script))
-      .findFirst()
-      .get();
+  private PanelShot findShot() {
+    for (final PanelShot s : PanelShot.values()){
+      if(s.findInText(script)) {
+        return s;
+      }
+    }
+    return PanelShot.DEFAULT;
   }
 
-  private void findSize() {
-    size = Arrays.asList(PanelSize.values())
-      .stream()
-      .filter(s -> s.findInText(script))
-      .findFirst()
-      .get();
+  private PanelSize findSize() {
+    for (final PanelSize s : PanelSize.values()) {
+      if(s.findInText(script)) {
+        return s;
+      }
+    }
+    return PanelSize.ONE_THIRD;
   }
 }
 

@@ -16,8 +16,9 @@ public enum PanelSize {
   private Pattern pattern;
 
   PanelSize(final String pattern, final int size) {
+    final String ignoreCase = "(?i)";
+    this.pattern = Pattern.compile(ignoreCase+pattern);
     this.size = size;
-    this.pattern = Pattern.compile(pattern);
   }
 
   public boolean findInText(final String text) {

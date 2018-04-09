@@ -12,13 +12,15 @@ public enum PanelShot {
   CLOSE_UP("close-up", "closeup.png"),
   ITALIAN_SHOT("italian shot", "italian.png"),
 
-  AERIAL_SHOT("italian shot", "aerial.png"),
+  AERIAL_SHOT("aerial shot", "aerial.png"),
   BIRDS_EYE_SHOT("bird's-eye shot", "birdseye.png"),
   LOW_ANGLE_SHOT("low angle shot", "lowangle.png"),
 
   POINT_OF_VIEW_SHOT("point of view shot", "pointofview.png"),
   OVER_THE_SHOULDER_SHOT("over the shoulder shot", "overtheshoulder.png"),
-  TWO_SHOT("two shot", "two.png");
+  TWO_SHOT("two shot", "two.png"),
+
+  DEFAULT("--x--nonexistent--x--", "default.png");
 
   private Pattern pattern;
   private String fileName;
