@@ -10,14 +10,14 @@ PANEL 2
 Medium shot, half size
 Ada behind the steering wheel of the vehicle
 ADA
-Weird ... 
+Weird ...
 Hey, we're almost there.
 PANEL 3
-Medium shot, half size
+pov, half size
 Ada and Bram watching the battle from afar using one of the fancy binoculars.
 BRAM
 It's not going to well for our friends ... We need to get the shield online as fast as possible! Let's ...
- 
+
 PANEL 4
 Long shot, strip size
 Bram and Ada are surrounded by a huge host of clients.
@@ -46,15 +46,16 @@ PAGE 3
 PANEL 1
 Page size, bird's-eye shot
 Master Branch and Eezer are beset by the alien forces. Their defensive efforts are more or less hopeless.
-PAGE 4
+
+PAGE 4
 PANEL 1
 Two thirds size, over the shoulder
 PANEL 2
 One third size, closeup
 PANEL 3
-One third size, medium shot
+One third size, close-up female
 PANEL 4
 Two third size, ots flipped
 PANEL 5
-Strip size, crane shot
+Strip size, two shot
 Ada, Ruby, Bram and the army of clients are fighting their way into the abode.

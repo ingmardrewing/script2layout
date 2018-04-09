@@ -11,6 +11,7 @@ public enum PanelShot {
   FULL_SHOT("full.png", "full shot"),
   AMERICAN_SHOT("american.png", "american shot"),
   MEDIUM_SHOT("medium.png", "medium shot"),
+  CLOSE_UP_FEMALE("closeupfemale.png", "close-up female", "closeup female"),
   CLOSE_UP("closeup.png", "close-up", "closeup"),
   ITALIAN_SHOT("italian.png", "italian shot"),
 
