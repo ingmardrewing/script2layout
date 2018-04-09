@@ -97,7 +97,7 @@ public class Renderer {
 	}
 
   private float calcWidth(final PanelSize size) {
-    final float minWidth = STRIP_WIDTH - 2 * (GUTTER_WIDTH + (STRIP_WIDTH/3));
+    final float minWidth = STRIP_WIDTH/3 - GUTTER_WIDTH*2/3 ;
     switch(size) {
       case ONE_THIRD:
         return minWidth;
