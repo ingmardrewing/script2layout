@@ -3,7 +3,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.drewing.comic.layout</groupId>
   <artifactId>script2layout</artifactId>
+
   <packaging>jar</packaging>
+
   <version>1.0.0</version>
   <name>script2layout</name>
   <url>http://maven.apache.org</url>
@@ -19,4 +21,24 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>lib/</classpathPrefix>
+              <mainClass>de.drewing.comic.layout.App</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>

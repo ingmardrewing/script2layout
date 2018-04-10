@@ -1,10 +1,6 @@
 #!/bin/bash
-mvn package
-JAR='target/script2layout-1.0-SNAPSHOT.jar'
-SCRIPT='script.txt'
-java -cp $JAR de.drewing.comic.layout.App $SCRIPT
+mvn clean package
 
-if [ -e $JAR ]
-then
-  rm $JAR
-fi
+JAR='target/script2layout-1.0.0.jar'
+SCRIPT='script.txt'
+java -jar $JAR $SCRIPT
