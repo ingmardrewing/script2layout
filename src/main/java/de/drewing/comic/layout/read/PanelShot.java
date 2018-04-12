@@ -6,36 +6,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum PanelShot {
-  EXTREME_LONG_SHOT("extremelong.png", "extreme long shot"),
-  LONG_SHOT("long.png", "long shot"),
-  FULL_SHOT("full.png", "full shot"),
-  AMERICAN_SHOT("american.png", "american shot"),
-  MEDIUM_SHOT("medium.png", "medium shot"),
-  CLOSE_UP_FEMALE("closeupfemale.png", "close-up female", "closeup female"),
-  CLOSE_UP("closeup.png", "close-up", "closeup"),
-  ITALIAN_SHOT("italian.png", "italian shot"),
+  EXTREME_LONG_SHOT("extremelong", "extreme long shot"),
+  LONG_SHOT("long", "long shot"),
+  FULL_SHOT("full", "full shot"),
+  AMERICAN_SHOT("american", "american shot"),
+  MEDIUM_SHOT("medium", "medium shot"),
+  CLOSE_UP_FEMALE("closeupfemale", "close-up female", "closeup female"),
+  CLOSE_UP("closeup", "close-up", "closeup"),
+  ITALIAN_SHOT("italian", "italian shot"),
 
-  AERIAL_SHOT("aerial.png", "aerial shot", "crane shot"),
-  BIRDS_EYE_SHOT("birdseye.png", "bird's-eye shot", "birds-eye shot", "god"),
-  LOW_ANGLE_SHOT("lowangle.png", "low angle shot"),
+  AERIAL_SHOT("aerial", "aerial shot", "crane shot"),
+  BIRDS_EYE_SHOT("birdseye", "bird's-eye shot", "birds-eye shot", "god"),
+  LOW_ANGLE_SHOT("lowangle", "low angle shot", "low angle"),
 
-  POINT_OF_VIEW_SHOT("pointofview.png", "point of view shot" , "pov"),
-  OVER_THE_SHOULDER_SHOT_FLIPPED("overtheshoulderflip.png", "over the shoulder shot flipped", "over the shoulder flipped", "ots flipped"),
-  OVER_THE_SHOULDER_SHOT("overtheshoulder.png", "over the shoulder shot", "over the shoulder", "ots"),
-  TWO_SHOT("two.png", "two shot"),
+  POINT_OF_VIEW_SHOT("pointofview", "point of view shot" , "pov"),
+  OVER_THE_SHOULDER_SHOT_FLIPPED("overtheshoulderflip", "over the shoulder shot flipped", "over the shoulder flipped", "ots flipped"),
+  OVER_THE_SHOULDER_SHOT("overtheshoulder", "over the shoulder shot", "over the shoulder", "ots"),
+  TWO_SHOT("two", "two shot"),
 
-  DEFAULT("default.png");
+  DEFAULT("default");
 
   private List<Pattern> patterns;
-  private String fileName;
+  private String dirName;
 
-  PanelShot(final String fileName, final String... patternsParam){
+  PanelShot(final String dirName, final String... patternsParam){
     patterns = new ArrayList<Pattern>();
     final String ignoreCase = "(?i)";
     for (final String p : patternsParam){
       patterns.add(Pattern.compile(ignoreCase + p));
     }
-    this.fileName = fileName;
+    this.dirName = dirName;
   }
 
   public boolean findInText(final String text) {
@@ -48,7 +48,7 @@ public enum PanelShot {
     return false;
   }
 
-  public String getPathAndName() {
-    return "images/" + fileName;
+  public String getDir() {
+    return  dirName;
   }
 }
