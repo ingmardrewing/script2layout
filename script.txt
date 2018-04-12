@@ -1,51 +1,28 @@
 PAGE 1
 PANEL 1
 Extreme long shot, strip size
-Modified Vehicle (back part has been replaced with parts from the ad agency) seen from above.
-ADA
-I still don‘t get it - why are they doing this?
-BRAM
-Inside the reactor of the ad agency they get fifteen minutes of flame. Maybe that's why.
 PANEL 2
 Medium shot, half size
-Ada behind the steering wheel of the vehicle
-ADA
-Weird ...
-Hey, we're almost there.
 PANEL 3
 pov, half size
-Ada and Bram watching the battle from afar using one of the fancy binoculars.
-BRAM
-It's not going to well for our friends ... We need to get the shield online as fast as possible! Let's ...
-
 PANEL 4
 Long shot, strip size
-Bram and Ada are surrounded by a huge host of clients.
-BRAM
-Oh, fuck ...
 
 PAGE 2
 PANEL 1
 Double strip size, aerial shot
-Ada and Bram with drawn weapons surrounded by clients.
-ADA
-Why aren't they attacking?
 PANEL 2
 One third size, extreme long shot
-The clients opening up a way for a hooded figure.
 PANEL 3
 One third size, long shot
-The hodded figure up close, a red diode glowin in the dark of the hood. The figure starting to pull back the hood.
 PANEL 4
 One third size, full shot
-It's Ruby!
 RUBY
 Looks like you could use a little help.
 
 PAGE 3
 PANEL 1
 Page size, bird's-eye shot
-Master Branch and Eezer are beset by the alien forces. Their defensive efforts are more or less hopeless.
 
 PAGE 4
 PANEL 1
@@ -58,4 +35,5 @@ PANEL 4
 Two third size, ots flipped
 PANEL 5
 Strip size, two shot
-Ada, Ruby, Bram and the army of clients are fighting their way into the abode.
+
+

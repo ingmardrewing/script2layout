@@ -1,18 +1,43 @@
 package de.drewing.comic.layout.read;
 
 import java.util.Arrays;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.jar.JarFile;
+import java.util.jar.JarEntry;
+
+import java.io.IOException;
+import java.io.File;
+import java.io.FilenameFilter;
+
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.nio.file.Files;
 
 import java.awt.image.BufferedImage;
+
 import javax.imageio.ImageIO;
-import java.io.IOException;
+
+import java.net.URISyntaxException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLDecoder;
 
 public class Panel {
   private PanelShot shot;
+  private PanelShotContext context;
   private PanelSize size;
   private String script;
+
+  private String imagePath;
+  private int sizeAsInt;
 
   Panel (final String script) {
     this.script = script;
@@ -22,7 +47,11 @@ public class Panel {
   private void init() {
     shot = findShot();
     size = findSize();
-    final String result = String.format("Found %s with panelsize %d", shot.getPathAndName(), size.asInt());
+    context = findContext();
+
+    imagePath = getImagePath();
+    sizeAsInt = size.asInt();
+    final String result = String.format("Found %s with panelsize %d", imagePath , sizeAsInt);
     System.out.println(result);
   }
 
@@ -50,13 +79,20 @@ public class Panel {
     return shot != null;
   }
 
+  private String getImagePath() {
+    final String imageDir = "images";
+    final String contextDir = context.getDir();
+    final String shotDir = shot.getDir();
+    final String name = "image000.png";
+
+    final Path path = Paths.get(imageDir, contextDir, shotDir);
+    return Paths.get(path.toString(), name ).toString();
+  }
+
   public BufferedImage getImage() {
     if(hasImage()) {
-      final String pathAndName = shot.getPathAndName();
-      try {
-        return ImageIO.read(getClass()
-          .getClassLoader()
-          .getResource(pathAndName));
+     try {
+        return ImageIO.read(getClass().getClassLoader().getResource(imagePath));
       }
       catch (IOException e) {
         e.printStackTrace();
@@ -81,6 +117,15 @@ public class Panel {
       }
     }
     return PanelSize.ONE_THIRD;
+  }
+
+  private PanelShotContext findContext() {
+    for (final PanelShotContext s : PanelShotContext.values()) {
+      if(s.findInText(script)) {
+        return s;
+      }
+    }
+    return PanelShotContext.DEFAULT;
   }
 }
 

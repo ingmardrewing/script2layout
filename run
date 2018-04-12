@@ -1,6 +1,3 @@
 #!/bin/bash
 mvn clean package
-
-JAR='target/script2layout-1.0.0.jar'
-SCRIPT='script.txt'
-java -jar $JAR $SCRIPT
+java -jar target/script2layout-1.0.0-SNAPSHOT.jar script.txt
