@@ -67,6 +67,10 @@ public class Panel {
     return ret;
   }
 
+  void setSize(PanelSize size) {
+    this.size = size;
+  }
+
   public PanelSize getSize() {
     return size;
   }
@@ -77,6 +81,10 @@ public class Panel {
 
   public boolean hasImage() {
     return shot != null;
+  }
+
+  public boolean hasSize() {
+    return size != PanelSize.UNDEFINED;
   }
 
   private String getImagePath() {

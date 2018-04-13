@@ -10,7 +10,8 @@ public enum PanelSize {
   TWO_THIRDS("two thirds? size", 4),
   DOUBLE_STRIP("double strip size", 12),
   STRIP("strip size", 6),
-  PAGE("page size", 18);
+  PAGE("page size", 18),
+  UNDEFINED("", 0);
 
   private int size;
   private Pattern pattern;

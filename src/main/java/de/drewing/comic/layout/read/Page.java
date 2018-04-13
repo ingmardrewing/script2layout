@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Page{
-  private static int REQUIRED_SIZE = 18;
+  private static int MAX_SIZE = 18;
 
   private String script;
   private List<String> panelTexts;
@@ -23,6 +23,7 @@ public class Page{
     System.out.println("Reading page:" + number);
     prepareScript();
     generatePanels();
+    checkSizes();
     System.out.println();
   }
 
@@ -39,6 +40,12 @@ public class Page{
       .collect(Collectors.toList());
   }
 
+  private void checkSizes() {
+    final PanelSizeInferer psi = new PanelSizeInferer(panels);
+    psi.checkPanelsAndGenerateSizesIfNotSet();
+    panels = psi.getPanels();
+  }
+
   public int number() {
     return number;
   }
@@ -48,7 +55,7 @@ public class Page{
       .stream()
       .mapToInt(p -> p.getSize().asInt())
       .sum();
-    return i == REQUIRED_SIZE;
+    return i <= MAX_SIZE;
   }
 
   public List<Panel> getPanels() {
