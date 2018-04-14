@@ -3,7 +3,7 @@ package de.drewing.comic.layout.control;
 import java.io.File;
 import java.awt.FileDialog;
 
-import de.drewing.comic.layout.Config;
+import de.drewing.comic.layout.model.Config;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;

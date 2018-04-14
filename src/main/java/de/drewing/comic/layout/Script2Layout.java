@@ -1,14 +1,12 @@
 package de.drewing.comic.layout;
 
+import de.drewing.comic.layout.model.Config;
 import de.drewing.comic.layout.view.View;
-
 import de.drewing.comic.layout.control.SelectScriptFile;
 import de.drewing.comic.layout.control.SelectOutputDir;
 import de.drewing.comic.layout.control.GeneratePages;
 
 public class Script2Layout{
-  private static Config config;
-
   public static void main(String[] args) {
     final Config config = new Config();
 

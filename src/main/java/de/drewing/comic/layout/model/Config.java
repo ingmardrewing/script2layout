@@ -1,4 +1,4 @@
-package de.drewing.comic.layout;
+package de.drewing.comic.layout.model;
 
 public class Config {
   public String scriptFilename;
