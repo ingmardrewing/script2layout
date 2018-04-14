@@ -41,17 +41,22 @@ public class GeneratePages implements ActionListener {
     if (generating){
       return;
     }
-    String msg = "";
+
+    List<String> msgs = new ArrayList<String>();
     if (config.scriptFilename == null) {
-      msg +="Missing a script file.\nPlease, select a fitting text file.";
+      msgs.add("Missing a script file.");
+      msgs.add("Please, select a fitting text file.");
     }
     if (config.outputDir == null) {
-      msg +="Missing an output directory.\nPlease select an output directory.";
+      msgs.add("Missing an output directory.");
+      msgs.add("Please select an output directory.");
     }
-    if(msg.length() >0) {
-      view.showNotification(msg);
+    if(msgs.size() >0) {
+      final String m = String.join("\n", msgs.toArray(new String[0]));
+      view.showNotification(m);
       return;
     }
+
     generating = true;
     readScript();
     createPages();
