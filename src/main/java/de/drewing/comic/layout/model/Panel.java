@@ -1,4 +1,4 @@
-package de.drewing.comic.layout.read;
+package de.drewing.comic.layout.model;
 
 import java.util.Arrays;
 import java.util.Set;

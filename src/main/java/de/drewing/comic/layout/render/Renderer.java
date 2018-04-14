@@ -1,8 +1,8 @@
 package de.drewing.comic.layout.render;
 
-import de.drewing.comic.layout.read.Page;
-import de.drewing.comic.layout.read.Panel;
-import de.drewing.comic.layout.read.PanelSize;
+import de.drewing.comic.layout.model.Page;
+import de.drewing.comic.layout.model.Panel;
+import de.drewing.comic.layout.model.PanelSize;
 
 import java.lang.Math;
 

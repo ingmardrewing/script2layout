@@ -21,8 +21,8 @@ import javax.imageio.ImageIO;
 
 import java.awt.image.BufferedImage;
 
-import de.drewing.comic.layout.read.Book;
-import de.drewing.comic.layout.read.Page;
+import de.drewing.comic.layout.model.Book;
+import de.drewing.comic.layout.model.Page;
 import de.drewing.comic.layout.render.Renderer;
 import de.drewing.comic.layout.view.View;
 
