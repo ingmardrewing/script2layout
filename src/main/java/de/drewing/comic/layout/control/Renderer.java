@@ -1,4 +1,4 @@
-package de.drewing.comic.layout.render;
+package de.drewing.comic.layout.control;
 
 import de.drewing.comic.layout.model.Page;
 import de.drewing.comic.layout.model.Panel;

@@ -23,7 +23,6 @@ import java.awt.image.BufferedImage;
 
 import de.drewing.comic.layout.model.Book;
 import de.drewing.comic.layout.model.Page;
-import de.drewing.comic.layout.render.Renderer;
 import de.drewing.comic.layout.view.View;
 
 @SuppressWarnings("serial")
