@@ -60,7 +60,7 @@ public class Panel {
     List<String> shortenedLines = new ArrayList<String>();
     for(final String l : getScriptWithSeparatedDialog()) {
       if (l.length() > size) {
-        final Pattern p = Pattern.compile("(?s)(.{0,"+size+"})");
+        final Pattern p = Pattern.compile("(?s)(.{0,"+size+"}\\S+\\s?)");
         final Matcher m = p.matcher(l);
         while(m.find()){
           shortenedLines.add(m.group());
@@ -69,9 +69,6 @@ public class Panel {
       else {
         shortenedLines.add(l);
       }
-    }
-    for (final String o :shortenedLines) {
-      System.out.println(o);
     }
     return shortenedLines;
   }
@@ -84,6 +81,7 @@ public class Panel {
     for(final String line : lines) {
       if(line.matches("(^[A-Z ]+$)")){
         s.add(current);
+        s.add("");
         s.add(line);
         current = "";
       }

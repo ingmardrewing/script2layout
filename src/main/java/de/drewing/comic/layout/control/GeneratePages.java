@@ -51,11 +51,11 @@ public class GeneratePages implements ActionListener {
       msgs.add("Please select an output directory.");
     }
     if(msgs.size() == 0) {
-      return false;
+      return true;
     }
     final String m = String.join("\n", msgs.toArray(new String[0]));
     view.showNotification(m);
-    return true;
+    return false;
   }
 
   public void actionPerformed(ActionEvent e) {
