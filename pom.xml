@@ -6,7 +6,7 @@
 
   <packaging>jar</packaging>
 
-  <version>1.0.1</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>script2layout</name>
   <url>http://maven.apache.org</url>
   <properties>
@@ -17,7 +17,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.12</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -33,7 +33,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>de.drewing.comic.layout.App</mainClass>
+              <mainClass>de.drewing.comic.layout.Script2Layout</mainClass>
             </manifest>
           </archive>
         </configuration>

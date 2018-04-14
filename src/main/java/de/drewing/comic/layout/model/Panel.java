@@ -1,4 +1,4 @@
-package de.drewing.comic.layout.read;
+package de.drewing.comic.layout.model;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.jar.JarFile;
 import java.util.jar.JarEntry;
+import java.util.regex.*;
 
 import java.io.IOException;
 import java.io.File;
@@ -55,16 +56,47 @@ public class Panel {
     System.out.println(result);
   }
 
-  public String getScript() {
-    return script;
+  public List<String> getScriptWithLineLength(final int size) {
+    List<String> shortenedLines = new ArrayList<String>();
+    for(final String l : getScriptWithSeparatedDialog()) {
+      if (l.length() > size) {
+        final Pattern p = Pattern.compile("(?s)(.{0,"+size+"}\\S+\\s?)");
+        final Matcher m = p.matcher(l);
+        while(m.find()){
+          shortenedLines.add(m.group());
+        }
+      }
+      else {
+        shortenedLines.add(l);
+      }
+    }
+    return shortenedLines;
   }
 
-  public List<String> getScriptWithLineLength(final int size) {
-    List<String> ret = new ArrayList<String>((script.length() + size - 1) / size);
-    for (int start = 0; start < script.length(); start += size) {
-        ret.add(script.substring(start, Math.min(script.length(), start + size)));
+  List<String> getScriptWithSeparatedDialog() {
+    final String[] lines = script.split("\\R");
+    final List<String> s = new ArrayList<String>();
+
+    String current = "";
+    for(final String line : lines) {
+      if(line.matches("(^[A-Z ]+$)")){
+        s.add(current);
+        s.add("");
+        s.add(line);
+        current = "";
+      }
+      else {
+        current += line + "\n";
+      }
     }
-    return ret;
+    if(current.length() > 0) {
+      s.add(current);
+    }
+    return s;
+  }
+
+  void setSize(PanelSize size) {
+    this.size = size;
   }
 
   public PanelSize getSize() {
@@ -77,6 +109,10 @@ public class Panel {
 
   public boolean hasImage() {
     return shot != null;
+  }
+
+  public boolean hasSize() {
+    return size != PanelSize.UNDEFINED;
   }
 
   private String getImagePath() {
