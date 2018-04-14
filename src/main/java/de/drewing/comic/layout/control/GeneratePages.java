@@ -37,12 +37,11 @@ public class GeneratePages implements ActionListener {
     this.config = config;
   }
 
-  public void actionPerformed(ActionEvent e) {
-    if (generating){
-      return;
-    }
-
+  private boolean isExecutable() {
     List<String> msgs = new ArrayList<String>();
+    if (generating){
+      msgs.add("Already creating layout.");
+    }
     if (config.scriptFilename == null) {
       msgs.add("Missing a script file.");
       msgs.add("Please, select a fitting text file.");
@@ -51,12 +50,18 @@ public class GeneratePages implements ActionListener {
       msgs.add("Missing an output directory.");
       msgs.add("Please select an output directory.");
     }
-    if(msgs.size() >0) {
-      final String m = String.join("\n", msgs.toArray(new String[0]));
-      view.showNotification(m);
+    if(msgs.size() == 0) {
+      return false;
+    }
+    final String m = String.join("\n", msgs.toArray(new String[0]));
+    view.showNotification(m);
+    return true;
+  }
+
+  public void actionPerformed(ActionEvent e) {
+    if (!isExecutable()) {
       return;
     }
-
     generating = true;
     readScript();
     createPages();
