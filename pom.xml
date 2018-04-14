@@ -33,7 +33,7 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>de.drewing.comic.layout.App</mainClass>
+              <mainClass>de.drewing.comic.layout.Script2Layout</mainClass>
             </manifest>
           </archive>
         </configuration>

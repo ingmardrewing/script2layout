@@ -6,7 +6,7 @@ import de.drewing.comic.layout.control.SelectScriptFile;
 import de.drewing.comic.layout.control.SelectOutputDir;
 import de.drewing.comic.layout.control.GeneratePages;
 
-public class App{
+public class Script2Layout{
   private static Config config;
 
   public static void main(String[] args) {
