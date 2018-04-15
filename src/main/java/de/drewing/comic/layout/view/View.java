@@ -14,6 +14,7 @@ public class View {
   private JButton generateBtn;
 
   private JFrame frame;
+
   private JPanel panel;
 
   private SelectScriptFile selectScriptAction;

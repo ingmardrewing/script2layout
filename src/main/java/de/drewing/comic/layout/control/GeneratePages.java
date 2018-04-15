@@ -24,18 +24,34 @@ import java.io.File;
 import de.drewing.comic.layout.model.Config;
 import de.drewing.comic.layout.model.Book;
 import de.drewing.comic.layout.model.Page;
+import de.drewing.comic.layout.model.PanelSequence;
 import de.drewing.comic.layout.view.View;
 
 @SuppressWarnings("serial")
 public class GeneratePages implements ActionListener {
   private final Config config;
   private List<Page> pages;
+  private PanelSequence panelSequence;
   private View view;
 
   private static boolean generating = false;
 
   public GeneratePages(final Config config) {
     this.config = config;
+  }
+
+  public void actionPerformed(ActionEvent e) {
+    if (!isExecutable()) {
+      return;
+    }
+    generating = true;
+    view.showNotification("Generating pages now.\nThis might take some time.");
+
+    readScript();
+    createPages();
+    checkPanelSequence();
+    renderAndSavePages();
+    finish();
   }
 
   private boolean isExecutable() {
@@ -57,17 +73,6 @@ public class GeneratePages implements ActionListener {
     final String m = String.join("\n", msgs.toArray(new String[0]));
     view.showNotification(m);
     return false;
-  }
-
-  public void actionPerformed(ActionEvent e) {
-    if (!isExecutable()) {
-      return;
-    }
-    generating = true;
-    readScript();
-    createPages();
-    renderAndSavePages();
-    finish();
   }
 
   private void finish () {
@@ -106,7 +111,13 @@ public class GeneratePages implements ActionListener {
 
   private void createPages() {
     final Book b = new Book(config.script);
-    pages = b.generatePages();
+    b.generatePages();
+    panelSequence = b.getPanelSequence();
+    pages = b.getPages();
+  }
+
+  private void checkPanelSequence() {
+    panelSequence.checkDoubles();
   }
 
   private void renderAndSavePages() {

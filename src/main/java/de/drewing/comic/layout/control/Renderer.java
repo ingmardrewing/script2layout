@@ -37,12 +37,10 @@ public class Renderer {
   private Page page;
 
   public Renderer(final Page p) {
-    System.out.println("new Renderer");
     this.page = p;
   }
 
   public BufferedImage renderPage() {
-    System.out.println("renderPage");
     final BufferedImage image = getImage();
     final Graphics2D g = getGraphics(image);
     page.getPanels()
@@ -52,7 +50,6 @@ public class Renderer {
   }
 
   private Graphics2D getGraphics(final BufferedImage image) {
-    System.out.println("getGraphics");
     final Graphics2D g = image.createGraphics();
     g.setPaint(new Color(255, 255, 255));
     g.fillRect(0,0,(int)PAGE_WIDTH,(int)PAGE_HEIGHT);
@@ -62,7 +59,6 @@ public class Renderer {
   }
 
   private BufferedImage getImage() {
-    System.out.println("getImage");
    return new BufferedImage(
          (int)PAGE_WIDTH,
          (int)PAGE_HEIGHT,
@@ -70,7 +66,6 @@ public class Renderer {
   }
 
   private void renderPanel(final Panel p, final Graphics2D g){
-    System.out.println("renderPanel");
     final int w = (int)calcWidth(p.getSize());
     final int h = (int)calcHeight(p.getSize());
 
@@ -81,7 +76,6 @@ public class Renderer {
   }
 
 	private void renderDummyImage(final Graphics2D g, final Panel p, final int w, final int h){
-    System.out.println("renderDummyImage");
     if(p.hasImage()){
       final int min = Math.min(w, h);
       final BufferedImage img = Renderer.scale(p.getImage(), min, min);
@@ -92,7 +86,6 @@ public class Renderer {
 	}
 
 	private void renderText(final Graphics2D g, final Panel p){
-    System.out.println("renderText");
     g.setPaint(new Color(153, 153, 153));
     g.setFont(new Font("Arial", Font.PLAIN, 32));
     int ymove = 0;
@@ -104,7 +97,6 @@ public class Renderer {
 	}
 
   private float calcWidth(final PanelSize size) {
-    System.out.println("calcWidth");
     final float minWidth = STRIP_WIDTH/3 - GUTTER_WIDTH*2/3 ;
     switch(size) {
       case ONE_THIRD:
@@ -119,7 +111,6 @@ public class Renderer {
   }
 
   private float calcHeight(final PanelSize size) {
-    System.out.println("calcHeight");
     switch(size) {
       case DOUBLE_STRIP:
         return 2 * STRIP_HEIGHT - GUTTER_HEIGHT;
@@ -133,7 +124,6 @@ public class Renderer {
   }
 
   private void updatePanelPos(final int w, final int h) {
-    System.out.println("updatePanelPos");
     int newPosX = panelPos.x + w + (int)GUTTER_WIDTH;
     int newPosY = panelPos.y;
     if(newPosX >= (int)HORIZONTAL_BORDER + (int)STRIP_WIDTH){
@@ -144,7 +134,6 @@ public class Renderer {
   }
 
   private boolean atMiddleStrip () {
-    System.out.println("atMiddleStrip");
     final int middleStripPosY = (int) (
        VERTICAL_BORDER + STRIP_HEIGHT + GUTTER_HEIGHT
       );
@@ -152,7 +141,6 @@ public class Renderer {
   }
 
   private static BufferedImage scale(BufferedImage source, int dWidth, int dHeight) {
-    System.out.println("scale");
       if(source != null) {
         BufferedImage dest
           = new BufferedImage(dWidth, dHeight, BufferedImage.TYPE_INT_RGB);

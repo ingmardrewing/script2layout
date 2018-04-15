@@ -6,7 +6,9 @@ Medium shot, half size
 PANEL 3
 pov, half size
 PANEL 4
-Long shot, strip size
+Long shot, half size
+PANEL 5
+Long shot, half size
 
 PAGE 2
 PANEL 1
