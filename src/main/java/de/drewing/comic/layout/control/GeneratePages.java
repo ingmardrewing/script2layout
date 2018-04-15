@@ -1,12 +1,15 @@
 package de.drewing.comic.layout.control;
 
 import java.io.File;
-import java.awt.FileDialog;
 
-import de.drewing.comic.layout.model.Config;
 import javax.swing.*;
+import javax.imageio.ImageIO;
+
+import java.awt.FileDialog;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.awt.Desktop;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +20,8 @@ import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.File;
-import javax.imageio.ImageIO;
 
-import java.awt.image.BufferedImage;
-
+import de.drewing.comic.layout.model.Config;
 import de.drewing.comic.layout.model.Book;
 import de.drewing.comic.layout.model.Page;
 import de.drewing.comic.layout.view.View;
@@ -66,7 +67,18 @@ public class GeneratePages implements ActionListener {
     readScript();
     createPages();
     renderAndSavePages();
+    finish();
+  }
+
+  private void finish () {
     view.showNotification("Layouts have been generated at: "+ config.outputDir);
+    try {
+      Desktop.getDesktop().open(new File(config.outputDir));
+    }
+    catch(IOException e){
+      // do nothing, user has already seen a notification
+      // about where the generated files are.
+    }
     System.exit(0);
   }
 
