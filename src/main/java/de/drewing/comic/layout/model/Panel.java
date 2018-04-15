@@ -101,6 +101,10 @@ public class Panel {
     return shot;
   }
 
+  public String getScript() {
+    return script;
+  }
+
   public boolean hasImage() {
     return shot != null;
   }

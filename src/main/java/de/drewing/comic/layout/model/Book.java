@@ -7,20 +7,37 @@ import java.util.Arrays;
 public class Book {
   private List<String> pagesTexts;
   private String script;
+  private PanelSequence panelSequence;
   private List<Page> pages;
 
   public Book (final String script) {
     this.script = script;
+    init();
   }
 
-  public List<Page> generatePages() {
-    prepareScript();
-    int i = 0;
+  private void init() {
     pages = new ArrayList<Page>();
+    panelSequence = new PanelSequence();
+    prepareScript();
+  }
+
+  public void generatePages() {
+    int i = 0;
     for(final String txt : pagesTexts){
-      pages.add(new Page(txt,i));
+      final Page page = new Page(txt,i);
+      for( Panel p : page.getPanels()) {
+        panelSequence.add(p);
+      }
+      pages.add(page);
       i++;
     }
+  }
+
+  public PanelSequence getPanelSequence() {
+    return panelSequence;
+  }
+
+  public List<Page> getPages() {
     return pages;
   }
 
