@@ -59,16 +59,11 @@ public class Panel {
   public List<String> getScriptWithLineLength(final int size) {
     List<String> shortenedLines = new ArrayList<String>();
     for(final String l : getScriptWithSeparatedDialog()) {
-      if (l.length() > size) {
-        final Pattern p = Pattern.compile("(?s)(.{0,"+size+"}\\S+\\s?)");
+        final Pattern p = Pattern.compile("(.{0,"+size+"}\\S*\\s?)");
         final Matcher m = p.matcher(l);
         while(m.find()){
           shortenedLines.add(m.group());
         }
-      }
-      else {
-        shortenedLines.add(l);
-      }
     }
     return shortenedLines;
   }
@@ -81,7 +76,6 @@ public class Panel {
     for(final String line : lines) {
       if(line.matches("(^[A-Z ]+$)")){
         s.add(current);
-        s.add("");
         s.add(line);
         current = "";
       }
