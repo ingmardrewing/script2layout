@@ -87,9 +87,9 @@ public class Renderer {
 
 	private void renderText(final Graphics2D g, final Panel p){
     g.setPaint(new Color(153, 153, 153));
-    g.setFont(new Font("Arial", Font.PLAIN, 32));
+    g.setFont(new Font("Arial", Font.PLAIN, 26));
     int ymove = 0;
-    for ( String s : p.getScriptWithLineLength(30)){
+    for ( String s : p.getScriptWithLineLength(20)){
       g.drawString(s, panelPos.x + 15, panelPos.y + 40 + ymove);
       ymove += 32;
     }
