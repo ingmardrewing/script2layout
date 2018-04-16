@@ -6,3 +6,6 @@ run: all
 
 test:
 	mvn clean test
+
+app:
+	mvn package appbundle:bundle

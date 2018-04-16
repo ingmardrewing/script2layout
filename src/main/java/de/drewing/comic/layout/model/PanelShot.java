@@ -16,7 +16,7 @@ public enum PanelShot {
   ITALIAN_SHOT("italian", "italian shot"),
 
   AERIAL_SHOT("aerial", "aerial shot", "crane shot"),
-  BIRDS_EYE_SHOT("birdseye", "bird's-eye shot", "birds-eye shot", "god"),
+  BIRDS_EYE_SHOT("birdseye", "bird.?s-?eye", "bird", "god"),
   LOW_ANGLE_SHOT("lowangle", "low angle shot", "low angle"),
 
   POINT_OF_VIEW_SHOT("pointofview", "point of view shot" , "pov"),

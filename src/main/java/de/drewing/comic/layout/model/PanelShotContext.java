@@ -12,6 +12,7 @@ public enum PanelShotContext {
   INDOOR("indoor", "indoor"),
   */
   CITY("city", "city", "town" ),
+  LANDSCAPE("landscape", "landscape"),
 
   DEFAULT("default");
 
