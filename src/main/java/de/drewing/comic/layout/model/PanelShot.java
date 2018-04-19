@@ -39,6 +39,7 @@ public enum PanelShot {
   }
 
   public boolean findInText(final String text) {
+
     for (final Pattern p : patterns) {
       final Matcher m = p.matcher(text);
       if(m.find()){
