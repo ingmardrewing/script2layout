@@ -1,6 +1,7 @@
 package de.drewing.comic.layout;
 
 import de.drewing.comic.layout.model.Config;
+import de.drewing.comic.layout.model.CustomResources;
 import de.drewing.comic.layout.view.View;
 import de.drewing.comic.layout.control.SelectScriptFile;
 import de.drewing.comic.layout.control.SelectOutputDir;
@@ -8,7 +9,9 @@ import de.drewing.comic.layout.control.GeneratePages;
 import de.drewing.comic.layout.control.Generator;
 
 public class Script2Layout{
+
   public static void main(String[] args) {
+    initCustom();
     final Config config = new Config();
     if (args.length == 2 ) {
       config.scriptFilename = args[0];
@@ -18,6 +21,10 @@ public class Script2Layout{
     else {
       runWithGui(config);
     }
+  }
+
+  private static void initCustom() {
+    CustomResources.init("[]");
   }
 
   private static void runHeadless(final Config config){

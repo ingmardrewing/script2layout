@@ -38,6 +38,7 @@ public class Panel {
   private String script;
 
   private String imagePath;
+
   private int sizeAsInt;
 
   Panel (final String script) {
@@ -114,6 +115,11 @@ public class Panel {
   }
 
   private String getImagePath() {
+    final String customPath = CustomResources.findInText(script) ;
+    if(customPath != null) {
+      return customPath;
+    }
+
     final String imageDir = "images";
     final String contextDir = context.getDir();
     final String shotDir = shot.getDir();
