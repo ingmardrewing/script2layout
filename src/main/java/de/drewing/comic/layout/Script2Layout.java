@@ -11,11 +11,11 @@ import de.drewing.comic.layout.control.Generator;
 public class Script2Layout{
 
   public static void main(String[] args) {
-    initCustom();
     final Config config = new Config();
-    if (args.length == 2 ) {
+    if (args.length == 3 ) {
       config.scriptFilename = args[0];
       config.outputDir = args[1];
+      config.customResourcePath = args[2];
       runHeadless(config);
     }
     else {
@@ -23,11 +23,8 @@ public class Script2Layout{
     }
   }
 
-  private static void initCustom() {
-    CustomResources.init("[]");
-  }
-
   private static void runHeadless(final Config config){
+    CustomResources.init(config.customResourcePath);
     final Generator g = new Generator(config);
     g.generate();
   }
