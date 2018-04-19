@@ -9,17 +9,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 public class PanelShotsFromJson {
-  private ObjectMapper mapper;
-  private String jsonString;
+  private String jsonString ="";
   private JsonShot[] jsonShots;
+
+  private ObjectMapper mapper;
   private List<Shot> shots;
 
   PanelShotsFromJson (final String jsonString) {
     this.jsonString = jsonString;
-    mapper = new ObjectMapper();
+    init();
   }
 
-  void map() {
+  private void init() {
+    mapper = new ObjectMapper();
+    shots = new ArrayList<Shot>();
+    unmarshallJson();
+    map();
+  }
+
+  private void unmarshallJson() {
     try{
       jsonShots = mapper.readValue(jsonString, JsonShot[].class);
     }
@@ -28,8 +36,7 @@ public class PanelShotsFromJson {
     }
   }
 
-  void createShots(){
-    shots = new ArrayList<Shot>();
+  private void map(){
     for (final JsonShot j : jsonShots){
       shots.add(new Shot(Pattern.compile(j.pattern), j.path));
     }
@@ -63,4 +70,20 @@ class Shot {
 class JsonShot {
   String pattern;
   String path;
+
+  public void setPattern(final String pattern){
+    this.pattern = pattern;
+  }
+
+  public String getPattern(){
+    return pattern;
+  }
+
+  public void setPath(final String path){
+    this.path= path;
+  }
+
+  public String getPath(){
+    return path;
+  }
 }
