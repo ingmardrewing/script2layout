@@ -29,4 +29,10 @@ public final class CustomResources {
       return psfj.findInText(txt);
     return null;
   }
+
+  public static void addCustomShot(final String pattern,
+                                   final String path,
+                                   final boolean isRegex){
+    psfj.addCustomShot(pattern, path, isRegex);
+  }
 }

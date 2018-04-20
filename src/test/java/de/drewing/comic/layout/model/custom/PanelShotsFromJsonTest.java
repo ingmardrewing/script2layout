@@ -26,6 +26,18 @@ public class PanelShotsFromJsonTest {
       assertEquals("/path/to/image3", path3);
     }
 
+    @Test
+    public void panelShotFromJson_addCustomShot() {
+      final PanelShotsFromJson p = new PanelShotsFromJson();
+      p.addCustomShot("test.*", "/path/to/image", true);
+
+      final String actual= p.getShotsAsJson();
+      final String expected = "[{\"isRegex\":true,\"pattern\":\"test.*\",\"path\":\"/path/to/image\"}]";
+
+      assertEquals(expected, actual);
+    }
+
+
     private String json() {
       return "[{\"isRegex\":false,\"pattern\":\"testtoast\",\"path\":\"/path/to/image\"},{\"isRegex\":false,\"pattern\":\"test\",\"path\":\"/path/to/image2\"},{\"isRegex\":true,\"pattern\":\"tee.*st\",\"path\":\"/path/to/image3\"}]";
     }

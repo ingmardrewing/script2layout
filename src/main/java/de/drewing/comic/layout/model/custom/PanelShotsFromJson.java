@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.StringJoiner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -15,16 +16,20 @@ public class PanelShotsFromJson {
   private ObjectMapper mapper;
   private List<Shot> shots;
 
+  PanelShotsFromJson () {
+    init();
+  }
+
   PanelShotsFromJson (final String jsonString) {
     this.jsonString = jsonString;
     init();
+    unmarshallJson();
+    map();
   }
 
   private void init() {
     mapper = new ObjectMapper();
     shots = new ArrayList<Shot>();
-    unmarshallJson();
-    map();
   }
 
   private void unmarshallJson() {
@@ -38,7 +43,7 @@ public class PanelShotsFromJson {
 
   private void map(){
     for (final JsonShot j : jsonShots){
-      shots.add(new Shot(j.pattern, j.path, j.isRegex));
+      addCustomShot(j.pattern, j.path, j.isRegex);
     }
   }
 
@@ -49,6 +54,20 @@ public class PanelShotsFromJson {
       }
     }
     return null;
+  }
+
+  public void addCustomShot(final String pattern,
+                                   final String path,
+                                   final boolean isRegex){
+    shots.add(new Shot(pattern, path, isRegex));
+  }
+
+  public String getShotsAsJson() {
+    final StringJoiner sb = new StringJoiner(",");
+    for(final Shot s : shots){
+      sb.add("{\"isRegex\":"+s.isRegex +",\"pattern\":\""+s.pattern + "\",\"path\":\""+s.path + "\"}");
+    }
+    return "[" + sb.toString() + "]";
   }
 }
 
