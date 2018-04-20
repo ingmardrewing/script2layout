@@ -8,38 +8,47 @@ import de.drewing.comic.layout.control.SelectOutputDir;
 import de.drewing.comic.layout.control.GeneratePages;
 import de.drewing.comic.layout.control.Generator;
 
-public class Script2Layout{
+import java.util.List;
+import java.util.ArrayList;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class Script2Layout extends Application {
+
+  private static Config config;
 
   public static void main(String[] args) {
-    final Config config = new Config();
+    config = new Config();
     if (args.length == 3 ) {
-      config.scriptFilename = args[0];
-      config.outputDir = args[1];
-      config.customResourcePath = args[2];
-      runHeadless(config);
+      runHeadless(args);
     }
     else {
-      runWithGui(config);
+      launch(args);
     }
   }
 
-  private static void runHeadless(final Config config){
+  private static void runHeadless(final String[] args){
+    config.scriptFilename = args[0];
+    config.outputDir = args[1];
+    config.customResourcePath = args[2];
     CustomResources.init(config.customResourcePath);
     final Generator g = new Generator(config);
     g.generate();
   }
 
-  private static void runWithGui(final Config config) {
-    final SelectScriptFile scriptAction = new SelectScriptFile(config);
-    final SelectOutputDir dirAction = new SelectOutputDir(config);
-    final GeneratePages generateAction = new GeneratePages(config);
+    @Override
+    public void start(Stage stage) {
 
-    final View view = new View(scriptAction, dirAction, generateAction);
+      final SelectScriptFile scriptAction = new SelectScriptFile(config);
+      final SelectOutputDir dirAction = new SelectOutputDir(config);
+      final GeneratePages generateAction = new GeneratePages(config);
 
-    scriptAction.setView(view);
-    dirAction.setView(view);
-    generateAction.setView(view);
+      final View view = new View(stage, scriptAction, dirAction, generateAction);
 
-    view.init();
-  }
+      scriptAction.setView(view);
+      dirAction.setView(view);
+      generateAction.setView(view);
+    }
 }
+

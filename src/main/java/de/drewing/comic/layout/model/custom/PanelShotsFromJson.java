@@ -56,10 +56,12 @@ public class PanelShotsFromJson {
     return null;
   }
 
-  public void addCustomShot(final String pattern,
+  public Shot addCustomShot(final String pattern,
                                    final String path,
                                    final boolean isRegex){
-    shots.add(new Shot(pattern, path, isRegex));
+    final Shot s = new Shot(pattern, path, isRegex);
+    shots.add(s);
+    return s;
   }
 
   public String getShotsAsJson() {
@@ -71,27 +73,6 @@ public class PanelShotsFromJson {
   }
 }
 
-class Shot {
-  boolean isRegex = false;
-  Pattern pattern;
-  String searchString;
-  String path;
-
-  Shot(final String pattern, final String path, final boolean isRegex) {
-    this.pattern = Pattern.compile(pattern);
-    this.searchString = pattern;
-    this.path = path;
-    this.isRegex = isRegex;
-  }
-
-  boolean matches(final String txt) {
-    if (isRegex) {
-      final Matcher m = pattern.matcher(txt);
-      return m.find();
-    }
-    return txt.contains(searchString);
-  }
-}
 
 class JsonShot {
   boolean isRegex;
