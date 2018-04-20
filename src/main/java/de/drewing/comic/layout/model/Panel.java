@@ -31,6 +31,8 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLDecoder;
 
+import de.drewing.comic.layout.model.custom.CustomResources;
+
 public class Panel {
   private PanelShot shot;
   private PanelShotContext context;

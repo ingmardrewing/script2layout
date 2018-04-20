@@ -1,4 +1,4 @@
-package de.drewing.comic.layout.model;
+package de.drewing.comic.layout.model.custom;
 
 import java.util.List;
 import java.util.ArrayList;

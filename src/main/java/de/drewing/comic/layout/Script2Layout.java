@@ -1,7 +1,7 @@
 package de.drewing.comic.layout;
 
 import de.drewing.comic.layout.model.Config;
-import de.drewing.comic.layout.model.CustomResources;
+import de.drewing.comic.layout.model.custom.CustomResources;
 import de.drewing.comic.layout.view.View;
 import de.drewing.comic.layout.control.SelectScriptFile;
 import de.drewing.comic.layout.control.SelectOutputDir;

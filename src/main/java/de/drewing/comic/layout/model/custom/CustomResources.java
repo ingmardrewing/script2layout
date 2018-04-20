@@ -1,4 +1,4 @@
-package de.drewing.comic.layout.model;
+package de.drewing.comic.layout.model.custom;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
