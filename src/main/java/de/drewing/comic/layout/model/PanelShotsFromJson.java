@@ -38,7 +38,7 @@ public class PanelShotsFromJson {
 
   private void map(){
     for (final JsonShot j : jsonShots){
-      shots.add(new Shot(Pattern.compile(j.pattern), j.path));
+      shots.add(new Shot(j.pattern, j.path, j.isRegex));
     }
   }
 
@@ -53,21 +53,29 @@ public class PanelShotsFromJson {
 }
 
 class Shot {
+  boolean isRegex = false;
   Pattern pattern;
+  String searchString;
   String path;
 
-  Shot(final Pattern pattern, final String path) {
-    this.pattern = pattern;
+  Shot(final String pattern, final String path, final boolean isRegex) {
+    this.pattern = Pattern.compile(pattern);
+    this.searchString = pattern;
     this.path = path;
+    this.isRegex = isRegex;
   }
 
   boolean matches(final String txt) {
-    final Matcher m = pattern.matcher(txt);
-    return m.find();
+    if (isRegex) {
+      final Matcher m = pattern.matcher(txt);
+      return m.find();
+    }
+    return txt.contains(searchString);
   }
 }
 
 class JsonShot {
+  boolean isRegex;
   String pattern;
   String path;
 
@@ -85,5 +93,13 @@ class JsonShot {
 
   public String getPath(){
     return path;
+  }
+
+  public void setIsRegex(final boolean isRegex){
+    this.isRegex = isRegex;
+  }
+
+  public boolean getIsRegex(){
+    return isRegex;
   }
 }
