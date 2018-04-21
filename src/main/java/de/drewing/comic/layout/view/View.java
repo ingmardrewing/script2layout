@@ -46,12 +46,7 @@ public class View {
 
   private CustomJsonShotListEditor cjsle;
 
-  private List<ShotModel> shotModels = new ArrayList<ShotModel>();
-  private List<ShotView> shotViews = new ArrayList<ShotView>();
-  private BorderPane borderPane = new BorderPane();
-  private GridPane scrolledGrid = new GridPane();
-
-  private int i = 2;
+  private GridPane grid = new GridPane();
 
   public View (
       Stage stage,
@@ -62,148 +57,24 @@ public class View {
     this.selectOutputDirAction = selectOutputDirAction;
     this.generatePagesAction = generatePagesAction;
 
-    scrolledGrid.setHgap(10);
-    scrolledGrid.setVgap(10);
+    cjsle = new CustomJsonShotListEditor();
 
-    final GridPane top = new GridPane();
-    top.setHgap(10);
-    top.setVgap(10);
-    borderPane.setTop(top);
-
-    final Button addImage = new Button("Add Shot");
-    addImage.setOnAction( e->{
-      save();
-      addShotModel();
-      updateList();
+    final Button openEditor = new Button("Edit custom shots");
+    openEditor.setOnAction( e->{
+      cjsle.open();
     } );
-    top.add(addImage,1,1);
+    grid.add(openEditor,1,1);
 
-    final Button save = new Button("save");
-    save.setOnAction( e->{ save(); } );
-    save.setLayoutX(100);
-    top.add(save,2,1);
-
-    final Button clearV = new Button("clear");
-    clearV.setOnAction( e->{ clearList(); } );
-    clearV.setLayoutX(150);
-    top.add(clearV,3,1 );
-
-    final Button deleteV = new Button("delete");
-    deleteV.setOnAction( e->{ shotModels.clear(); } );
-    deleteV.setLayoutX(280);
-    top.add(deleteV, 4, 1);
-
-    final Button createV = new Button("create");
-    createV.setOnAction( e->{ createList(); } );
-    createV.setLayoutX(200);
-    top.add(createV, 5, 1);
-
-    final ScrollPane center = new ScrollPane();
-    final GridPane scrooledGrid = new GridPane();
-    center.setContent(scrolledGrid);
-    borderPane.setCenter(center);
-
-    final Scene scene = new Scene(borderPane, 800, 600);
-
+    Scene scene = new Scene(grid, 800, 600);
     stage.setScene(scene);
+
     stage.show();
-  }
-
-  private void addShotModel() {
-    System.out.println("addShotModel");
-    final ShotModel sm = new ShotModel();
-    shotModels.add(sm);
-  }
-
-  private void updateList() {
-    clearList();
-    createList();
-  }
-
-  private void save () {
-    System.out.println("save: models");
-    System.out.println(shotModels.size());
-    System.out.println("save: views");
-    System.out.println(shotViews.size());
-    shotModels.clear();
-    for(ShotView s : shotViews) {
-      final ShotModel sm = new ShotModel();
-      sm.pattern = s.pattern.getText();
-      sm.path = s.path.getText();
-      sm.isRegex = s.isRegex.isSelected();
-      shotModels.add(sm);
-    }
-    System.out.println("save: - post loop:");
-    System.out.println(shotModels.size());
-  }
-
-  private void createList () {
-    System.out.println("createList:");
-    System.out.println(shotModels.size());
-    shotViews.clear();
-    for (ShotModel sm : shotModels) {
-
-      final Label l = new Label("Keyword");
-
-      final TextField pattern = new TextField();
-      pattern.setText(sm.pattern);
-      pattern.setLayoutX(60);
-
-      final CheckBox isRegex = new CheckBox("regex");
-      isRegex.setSelected(sm.isRegex);
-      isRegex.setLayoutX(240);
-
-      final TextField path = new TextField();
-      path.setText(sm.path);
-      path.setLayoutX(320);
-
-      final Button select = new Button("Select image");
-      select.setLayoutX(420);
-
-      final Button delete = new Button("delete");
-      delete.setLayoutX(540);
-
-      final Group g = new Group();
-      g.getChildren().add(l);
-      g.getChildren().add(pattern);
-      g.getChildren().add(isRegex);
-      g.getChildren().add(path);
-      g.getChildren().add(select);
-      g.getChildren().add(delete);
-
-      final ShotView sv = new ShotView();
-      sv.pattern = pattern;
-      sv.path = path;
-      sv.isRegex = isRegex;
-      shotViews.add(sv);
-
-      delete.setOnAction( e -> {
-        delete(sm, sv);
-        updateList();
-      } );
-
-      scrolledGrid.add(g, 1, i);
-      i++;
-    }
-  }
-
-  private void clearList() {
-    i = 2;
-    scrolledGrid.getChildren().clear();
-  }
-
-  public void delete (ShotModel sm, ShotView sv) {
-    System.out.println("deleting shot");
-    shotModels.removeIf(s -> s == sm);
-    shotViews.removeIf(s -> s == sv);
-    updateList();
   }
 
   public void init () {
     createButtons();
     createPanel();
     createFrame();
-    createCustomJsonListEditor();
   }
 
   private void createButtons() {
@@ -235,10 +106,6 @@ public class View {
     frame.setVisible(true);
   }
 
-  private void createCustomJsonListEditor() {
-    cjsle = new CustomJsonShotListEditor(new String[]{});
-  }
-
   public void showNotification( final String msg) {
     final JFrame frame = new JFrame("");
     JOptionPane.showMessageDialog(frame, msg);
@@ -266,16 +133,4 @@ public class View {
 		fd.setVisible(true);
 		return fd.getDirectory() + fd.getFile();
   }
-}
-
-class ShotModel {
-  String pattern;
-  String path;
-  boolean isRegex;
-}
-
-class ShotView {
-  TextField pattern;
-  TextField path;
-  CheckBox isRegex;
 }
