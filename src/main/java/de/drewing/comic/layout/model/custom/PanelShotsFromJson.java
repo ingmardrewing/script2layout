@@ -1,9 +1,10 @@
-package de.drewing.comic.layout.model;
+package de.drewing.comic.layout.model.custom;
 
 import java.util.List;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.StringJoiner;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -15,16 +16,20 @@ public class PanelShotsFromJson {
   private ObjectMapper mapper;
   private List<Shot> shots;
 
-  PanelShotsFromJson (final String jsonString) {
-    this.jsonString = jsonString;
+  PanelShotsFromJson () {
     init();
   }
 
-  private void init() {
+  PanelShotsFromJson (final String jsonString) {
+    this.jsonString = jsonString;
+    init();
     mapper = new ObjectMapper();
-    shots = new ArrayList<Shot>();
     unmarshallJson();
     map();
+  }
+
+  private void init() {
+    shots = new ArrayList<Shot>();
   }
 
   private void unmarshallJson() {
@@ -38,7 +43,7 @@ public class PanelShotsFromJson {
 
   private void map(){
     for (final JsonShot j : jsonShots){
-      shots.add(new Shot(Pattern.compile(j.pattern), j.path));
+      addCustomShot(j.pattern, j.path, j.isRegex);
     }
   }
 
@@ -50,24 +55,35 @@ public class PanelShotsFromJson {
     }
     return null;
   }
-}
 
-class Shot {
-  Pattern pattern;
-  String path;
-
-  Shot(final Pattern pattern, final String path) {
-    this.pattern = pattern;
-    this.path = path;
+  public Shot addCustomShot(final String pattern,
+                                   final String path,
+                                   final boolean isRegex){
+    final Shot s = new Shot(pattern, path, isRegex);
+    addShot(s);
+    return s;
   }
 
-  boolean matches(final String txt) {
-    final Matcher m = pattern.matcher(txt);
-    return m.find();
+  public void addShot(final Shot shot){
+    shots.add(shot);
+  }
+
+  public List<Shot> getShots() {
+    return shots;
+  }
+
+  public String getShotsAsJson() {
+    final StringJoiner sb = new StringJoiner(",");
+    for(final Shot s : shots){
+      sb.add("{\"isRegex\":"+s.isRegex +",\"pattern\":\""+s.searchString+ "\",\"path\":\""+s.path + "\"}");
+    }
+    return "[" + sb.toString() + "]";
   }
 }
+
 
 class JsonShot {
+  boolean isRegex;
   String pattern;
   String path;
 
@@ -85,5 +101,13 @@ class JsonShot {
 
   public String getPath(){
     return path;
+  }
+
+  public void setIsRegex(final boolean isRegex){
+    this.isRegex = isRegex;
+  }
+
+  public boolean getIsRegex(){
+    return isRegex;
   }
 }
