@@ -3,8 +3,6 @@ package de.drewing.comic.layout;
 import de.drewing.comic.layout.model.Config;
 import de.drewing.comic.layout.model.custom.CustomResources;
 import de.drewing.comic.layout.view.View;
-import de.drewing.comic.layout.control.SelectScriptFile;
-import de.drewing.comic.layout.control.SelectOutputDir;
 import de.drewing.comic.layout.control.GeneratePages;
 import de.drewing.comic.layout.control.Generator;
 
@@ -39,15 +37,8 @@ public class Script2Layout extends Application {
 
     @Override
     public void start(Stage stage) {
-
-      final SelectScriptFile scriptAction = new SelectScriptFile(config);
-      final SelectOutputDir dirAction = new SelectOutputDir(config);
       final GeneratePages generateAction = new GeneratePages(config);
-
-      final View view = new View(stage, scriptAction, dirAction, generateAction);
-
-      scriptAction.setView(view);
-      dirAction.setView(view);
+      final View view = new View( config, stage, generateAction);
       generateAction.setView(view);
     }
 }

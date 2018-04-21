@@ -10,16 +10,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 public class Shot {
-  boolean isRegex = false;
-  Pattern pattern;
-  String searchString;
-  String path;
+  public boolean isRegex = false;
+  public Pattern pattern;
+  public String searchString;
+  public String path;
 
-  Shot(final String pattern, final String path, final boolean isRegex) {
-    this.pattern = Pattern.compile(pattern);
+  public Shot(final String pattern, final String path, final boolean isRegex) {
     this.searchString = pattern;
     this.path = path;
     this.isRegex = isRegex;
+    createPattern();
+  }
+
+  public void createPattern() {
+    if(searchString != null) {
+      this.pattern = Pattern.compile(searchString);
+    }
   }
 
   boolean matches(final String txt) {

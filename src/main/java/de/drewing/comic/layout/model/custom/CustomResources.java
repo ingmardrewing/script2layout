@@ -3,9 +3,13 @@ package de.drewing.comic.layout.model.custom;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.io.IOException;
 import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
 
 public final class CustomResources {
 
@@ -22,6 +26,25 @@ public final class CustomResources {
       catch(IOException e){
         e.printStackTrace();
       }
+  }
+
+  public static void addShot(final Shot shot) {
+    if(psfj == null) {
+        psfj = new PanelShotsFromJson();
+    }
+    psfj.addShot(shot);
+  }
+
+  public static void save() {
+    final String json = psfj.getShotsAsJson();
+    List<String> lines = Arrays.asList(json);
+    Path file = Paths.get("customShots.json");
+    try{
+      Files.write(file, lines, Charset.forName("UTF-8"));
+    }
+    catch(IOException e){
+      e.printStackTrace();
+    }
   }
 
   public static String findInText(final String txt) {

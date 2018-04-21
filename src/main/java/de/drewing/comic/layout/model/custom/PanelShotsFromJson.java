@@ -23,12 +23,12 @@ public class PanelShotsFromJson {
   PanelShotsFromJson (final String jsonString) {
     this.jsonString = jsonString;
     init();
+    mapper = new ObjectMapper();
     unmarshallJson();
     map();
   }
 
   private void init() {
-    mapper = new ObjectMapper();
     shots = new ArrayList<Shot>();
   }
 
@@ -60,8 +60,12 @@ public class PanelShotsFromJson {
                                    final String path,
                                    final boolean isRegex){
     final Shot s = new Shot(pattern, path, isRegex);
-    shots.add(s);
+    addShot(s);
     return s;
+  }
+
+  public void addShot(final Shot shot){
+    shots.add(shot);
   }
 
   public String getShotsAsJson() {

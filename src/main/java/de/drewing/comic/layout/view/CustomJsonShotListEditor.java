@@ -1,53 +1,29 @@
 package de.drewing.comic.layout.view;
 
+import de.drewing.comic.layout.model.custom.Shot;
+import de.drewing.comic.layout.model.custom.CustomResources;
+
 import java.util.List;
 import java.util.ArrayList;
+import java.io.File;
 
-import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
-import java.util.List;
-import java.util.ArrayList;
-
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
 
 public class CustomJsonShotListEditor  {
 
-  private List<ShotModel> shotModels = new ArrayList<ShotModel>();
+  private List<Shot> shotModels = new ArrayList<Shot>();
   private List<ShotView> shotViews = new ArrayList<ShotView>();
   private BorderPane borderPane = new BorderPane();
   private GridPane scrolledGrid = new GridPane();
@@ -55,10 +31,6 @@ public class CustomJsonShotListEditor  {
 	private Stage window = new Stage();
 
   private int i = 2;
-
-	public CustomJsonShotListEditor() {
-		System.out.println("editor created");
-	}
 
 	public void open() {
 		window.setTitle("edit custom shots");
@@ -81,6 +53,7 @@ public class CustomJsonShotListEditor  {
 
     final Button save = new Button("save");
     save.setOnAction( e->{
+      save();
       persistData();
     } );
     save.setLayoutX(100);
@@ -96,11 +69,14 @@ public class CustomJsonShotListEditor  {
   }
 
   private void persistData() {
+    for(final Shot s : shotModels){
+      CustomResources.addShot(s);
+      CustomResources.save();
+    }
   }
 
   private void addShotModel() {
-    System.out.println("addShotModel");
-    final ShotModel sm = new ShotModel();
+    final Shot sm = new Shot("", "", false);
     shotModels.add(sm);
   }
 
@@ -110,47 +86,47 @@ public class CustomJsonShotListEditor  {
   }
 
   private void save () {
-    System.out.println("save: models");
-    System.out.println(shotModels.size());
-    System.out.println("save: views");
-    System.out.println(shotViews.size());
     shotModels.clear();
     for(ShotView s : shotViews) {
-      final ShotModel sm = new ShotModel();
-      sm.pattern = s.pattern.getText();
+      final Shot sm = new Shot("", "", false);
+      sm.searchString = s.pattern.getText();
       sm.path = s.path.getText();
       sm.isRegex = s.isRegex.isSelected();
       shotModels.add(sm);
     }
-    System.out.println("save: - post loop:");
-    System.out.println(shotModels.size());
   }
 
   private void createList () {
-    System.out.println("createList:");
-    System.out.println(shotModels.size());
     shotViews.clear();
-    for (ShotModel sm : shotModels) {
+    for (final Shot sm : shotModels) {
 
       final Label l = new Label("Keyword");
+      l.setLayoutY(4);
 
       final TextField pattern = new TextField();
-      pattern.setText(sm.pattern);
+      pattern.setText(sm.searchString);
       pattern.setLayoutX(60);
 
       final CheckBox isRegex = new CheckBox("regex");
       isRegex.setSelected(sm.isRegex);
       isRegex.setLayoutX(240);
+      isRegex.setLayoutY(4);
 
       final TextField path = new TextField();
       path.setText(sm.path);
       path.setLayoutX(320);
 
       final Button select = new Button("Select image");
-      select.setLayoutX(420);
+      select.setLayoutX(490);
+      select.setOnAction( e -> {
+				final String imgPath = pickImage();
+				sm.path = imgPath;
+				save();
+        updateList();
+      } );
 
       final Button delete = new Button("delete");
-      delete.setLayoutX(540);
+      delete.setLayoutX(600);
 
       final Group g = new Group();
       g.getChildren().add(l);
@@ -168,6 +144,7 @@ public class CustomJsonShotListEditor  {
 
       delete.setOnAction( e -> {
         delete(sm, sv);
+        save();
         updateList();
       } );
 
@@ -181,20 +158,21 @@ public class CustomJsonShotListEditor  {
     scrolledGrid.getChildren().clear();
   }
 
-  public void delete (ShotModel sm, ShotView sv) {
-    System.out.println("deleting shot");
+  public void delete (Shot sm, ShotView sv) {
     shotModels.removeIf(s -> s == sm);
     shotViews.removeIf(s -> s == sv);
-    updateList();
   }
 
+  public String pickImage() {
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Open Resource File");
+    File file = fileChooser.showOpenDialog(window);
+    if( file != null){
+      return file.getAbsolutePath();
+    }
+    return null;
+  }
 
-}
-
-class ShotModel {
-  String pattern;
-  String path;
-  boolean isRegex;
 }
 
 class ShotView {
