@@ -75,12 +75,27 @@ public class Renderer {
     updatePanelPos(w,h);
   }
 
-	private void renderDummyImage(final Graphics2D g, final Panel p, final int w, final int h){
+	private void renderDummyImage(final Graphics2D g, final Panel p, final int panelWidth, final int panelHeight){
     if(p.hasImage()){
-      final int min = Math.min(w, h);
-      final BufferedImage img = Renderer.scale(p.getImage(), min, min);
-      final int dx = w/2 - min/2;
-      final int dy = h/2 - min/2;
+      final BufferedImage bim = p.getImage();
+      final float prop_bim = (float) bim.getWidth() / (float) bim.getHeight() ;
+      final float prop_pan = (float) panelWidth / (float) panelHeight;
+
+      float w, h ;
+      if (prop_bim > prop_pan) {
+        // -> width of panel is max
+        w = (float) panelWidth;
+        h = w * (float) bim.getHeight() / (float) bim.getWidth();
+      }
+      else {
+        // -> height of panel is max
+        h = (float) panelHeight;
+        w =  h * (float) bim.getWidth() / (float) bim.getHeight();
+      }
+
+      final BufferedImage img = Renderer.scale(bim, w, h);
+      final int dx = (int) (panelWidth/2 -  w/2);
+      final int dy = (int) (panelHeight/2 - h/2);
       g.drawImage(img,panelPos.x + dx, panelPos.y +dy, null);
     }
 	}
@@ -140,13 +155,13 @@ public class Renderer {
     return panelPos.y == middleStripPosY;
   }
 
-  private static BufferedImage scale(BufferedImage source, int dWidth, int dHeight) {
+  private static BufferedImage scale(BufferedImage source, float dWidth, float dHeight) {
       if(source != null) {
         BufferedImage dest
-          = new BufferedImage(dWidth, dHeight, BufferedImage.TYPE_INT_RGB);
+          = new BufferedImage((int) dWidth, (int) dHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = dest.createGraphics();
-        final float scaleX = (float)dWidth / 1000.0f ;
-        final float scaleY =  (float)dHeight/ 1000.0f ;
+        final float scaleX = dWidth / (float) source.getWidth();
+        final float scaleY =  dHeight/ (float) source.getHeight();
         AffineTransform at = AffineTransform.getScaleInstance(scaleX, scaleY);
         g.drawRenderedImage(source, at);
         return dest;

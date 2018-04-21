@@ -122,18 +122,26 @@ public class View {
     dirChooser.setTitle("Open Resource File");
     File dir = dirChooser.showDialog(stage);
     if( dir != null){
-      return dir.getAbsolutePath();
+      final String p = dir.getAbsolutePath();
+      System.out.println(p);
+      return p;
     }
+    System.out.println("no dir selected");
     return null;
   }
+
+  static String lastPicked = "";
 
   public String pickFile() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Open Resource File");
     File file = fileChooser.showOpenDialog(stage);
     if( file != null){
-      return file.getAbsolutePath();
+      final String p = file.getAbsolutePath();
+      System.out.println(p);
+      return p;
     }
+    System.out.println("no file selected");
     return null;
   }
 
@@ -225,9 +233,8 @@ public class View {
       final Button select = new Button("Select image");
       select.setLayoutX(490);
       select.setOnAction( e -> {
-				final String imgPath = pickImage();
+				final String imgPath = pickFile();
 				sm.path = imgPath;
-				save();
         updateDisplayedList();
       } );
 
@@ -267,16 +274,6 @@ public class View {
   public void delete (Shot sm, ShotView sv) {
     shotModels.removeIf(s -> s == sm);
     shotViews.removeIf(s -> s == sv);
-  }
-
-  public String pickImage() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Open Resource File");
-    File file = fileChooser.showOpenDialog(stage);
-    if( file != null){
-      return file.getAbsolutePath();
-    }
-    return null;
   }
 }
 

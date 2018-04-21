@@ -38,6 +38,7 @@ public class Panel {
   private PanelShotContext context;
   private PanelSize size;
   private String script;
+  private boolean isCustomImage;
 
   private String imagePath;
 
@@ -119,6 +120,7 @@ public class Panel {
   private String getImagePath() {
     final String customPath = CustomResources.findInText(script) ;
     if(customPath != null) {
+      isCustomImage = true;
       return customPath;
     }
 
@@ -134,6 +136,9 @@ public class Panel {
   public BufferedImage getImage() {
     if(hasImage()) {
      try {
+        if(isCustomImage) {
+          return ImageIO.read(new File(imagePath));
+        }
         return ImageIO.read(getClass().getClassLoader().getResource(imagePath));
       }
       catch (IOException e) {
