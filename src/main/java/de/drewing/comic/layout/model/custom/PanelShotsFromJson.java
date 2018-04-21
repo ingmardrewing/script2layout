@@ -68,10 +68,14 @@ public class PanelShotsFromJson {
     shots.add(shot);
   }
 
+  public List<Shot> getShots() {
+    return shots;
+  }
+
   public String getShotsAsJson() {
     final StringJoiner sb = new StringJoiner(",");
     for(final Shot s : shots){
-      sb.add("{\"isRegex\":"+s.isRegex +",\"pattern\":\""+s.pattern + "\",\"path\":\""+s.path + "\"}");
+      sb.add("{\"isRegex\":"+s.isRegex +",\"pattern\":\""+s.searchString+ "\",\"path\":\""+s.path + "\"}");
     }
     return "[" + sb.toString() + "]";
   }

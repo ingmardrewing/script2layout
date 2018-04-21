@@ -9,3 +9,6 @@ test:
 
 app:
 	mvn package appbundle:bundle
+
+jar:
+	mvn clean compile assembly:single

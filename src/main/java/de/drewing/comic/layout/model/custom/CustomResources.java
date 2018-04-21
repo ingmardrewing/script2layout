@@ -11,6 +11,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.File;
+
 public final class CustomResources {
 
   private static PanelShotsFromJson psfj;
@@ -57,5 +63,31 @@ public final class CustomResources {
                                    final String path,
                                    final boolean isRegex){
     psfj.addCustomShot(pattern, path, isRegex);
+  }
+
+	public static List<Shot> getShots() {
+		final String json = readShotsJson();
+    final PanelShotsFromJson ps = new PanelShotsFromJson(json);
+		return ps.getShots();
+	}
+
+  private static String readShotsJson() {
+		String json = "";
+    try {
+      FileReader f = new FileReader("customShots.json");
+      BufferedReader b = new BufferedReader(f);
+
+			String line;
+      while((line = b.readLine()) != null){
+        json += line ;
+      }
+    }
+    catch(FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    catch(IOException e) {
+      e.printStackTrace();
+    }
+		return json;
   }
 }

@@ -47,7 +47,7 @@ public class CustomJsonShotListEditor  {
     addImage.setOnAction( e->{
       save();
       addShotModel();
-      updateList();
+      updateDisplayedList();
     } );
     top.add(addImage,1,1);
 
@@ -66,6 +66,9 @@ public class CustomJsonShotListEditor  {
 
 		window.setScene(scene);
     window.show();
+
+		shotModels = CustomResources.getShots();
+		updateDisplayedList();
   }
 
   private void persistData() {
@@ -80,9 +83,9 @@ public class CustomJsonShotListEditor  {
     shotModels.add(sm);
   }
 
-  private void updateList() {
-    clearList();
-    createList();
+  private void updateDisplayedList() {
+    clearDisplayedList();
+    createDisplayedList();
   }
 
   private void save () {
@@ -96,7 +99,7 @@ public class CustomJsonShotListEditor  {
     }
   }
 
-  private void createList () {
+  private void createDisplayedList () {
     shotViews.clear();
     for (final Shot sm : shotModels) {
 
@@ -122,7 +125,7 @@ public class CustomJsonShotListEditor  {
 				final String imgPath = pickImage();
 				sm.path = imgPath;
 				save();
-        updateList();
+        updateDisplayedList();
       } );
 
       final Button delete = new Button("delete");
@@ -145,7 +148,7 @@ public class CustomJsonShotListEditor  {
       delete.setOnAction( e -> {
         delete(sm, sv);
         save();
-        updateList();
+        updateDisplayedList();
       } );
 
       scrolledGrid.add(g, 1, i);
@@ -153,7 +156,7 @@ public class CustomJsonShotListEditor  {
     }
   }
 
-  private void clearList() {
+  private void clearDisplayedList() {
     i = 2;
     scrolledGrid.getChildren().clear();
   }
