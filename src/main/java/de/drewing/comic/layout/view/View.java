@@ -180,6 +180,10 @@ public class View {
 
 		shotModels = CustomResources.getShots();
 		updateDisplayedList();
+
+    // TODO: Fix this - data needs to be read to be directly
+    // relevant for the rendering:
+    persistData();
   }
 
   private void persistData() {
