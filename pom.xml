@@ -34,6 +34,16 @@
 
   <build>
     <plugins>
+
+          <plugin>
+              <groupId>com.zenjava</groupId>
+              <artifactId>javafx-maven-plugin</artifactId>
+              <version>8.8.3</version>
+              <configuration>
+                  <vendor>drewing.de</vendor>
+                  <mainClass>de.drewing.comic.layout.Script2Layout</mainClass>
+              </configuration>
+          </plugin>
           <plugin>
             <artifactId>maven-assembly-plugin</artifactId>
             <version>3.0.0</version>
@@ -49,48 +59,15 @@
             </configuration>
             <executions>
                 <execution>
-                    <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                    <phase>package</phase> <!-- bind to the packaging phase -->
+                    <id>make-assembly</id>
+                    <phase>package</phase>
                     <goals>
                         <goal>single</goal>
                     </goals>
                 </execution>
             </executions>
         </plugin>
-        <!--
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.0.2</version>
-        <configuration>
-          <archive>
-            <manifest>
-              <addClasspath>true</addClasspath>
-              <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>de.drewing.comic.layout.Script2Layout</mainClass>
-            </manifest>
-          </archive>
-        </configuration>
-      </plugin>
-      -->
-      <plugin>
-        <groupId>sh.tak.appbundler</groupId>
-        <artifactId>appbundle-maven-plugin</artifactId>
-        <version>1.2.0</version>
-        <configuration>
-          <mainClass>de.drewing.comic.layout.Script2Layout</mainClass>
-          <jrePath>/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk</jrePath>
-          <generateDiskImageFile>true</generateDiskImageFile>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>bundle</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
+
     </plugins>
   </build>
 

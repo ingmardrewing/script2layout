@@ -8,7 +8,7 @@ test:
 	mvn clean test
 
 app:
-	mvn package appbundle:bundle
+	mvn jfx:native
 
 jar:
 	mvn clean compile assembly:single

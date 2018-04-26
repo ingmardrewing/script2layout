@@ -22,16 +22,16 @@ public final class CustomResources {
   private static PanelShotsFromJson psfj;
 
   public static void init(final String pathString) {
-      try {
-        final Path fp = Paths.get(pathString);
-        final String json = Files
-          .lines(fp, StandardCharsets.UTF_8)
-          .collect(Collectors.joining(""));
-        psfj = new PanelShotsFromJson(json);
-      }
-      catch(IOException e){
-        e.printStackTrace();
-      }
+    try {
+      final Path fp = Paths.get(pathString);
+      String json = Files
+        .lines(fp, StandardCharsets.UTF_8)
+        .collect(Collectors.joining(""));
+      psfj = new PanelShotsFromJson(json);
+    }
+    catch(IOException e){
+      e.printStackTrace();
+    }
   }
 
   public static void addShot(final Shot shot) {

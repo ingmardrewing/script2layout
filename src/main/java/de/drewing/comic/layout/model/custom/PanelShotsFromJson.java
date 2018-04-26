@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class PanelShotsFromJson {
   private String jsonString ="";
-  private JsonShot[] jsonShots;
+  private JsonShot[] jsonShots = new JsonShot[]{};
 
   private ObjectMapper mapper;
   private List<Shot> shots;
