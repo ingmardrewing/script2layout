@@ -34,7 +34,6 @@
 
   <build>
     <plugins>
-
           <plugin>
               <groupId>com.zenjava</groupId>
               <artifactId>javafx-maven-plugin</artifactId>
@@ -48,25 +47,25 @@
             <artifactId>maven-assembly-plugin</artifactId>
             <version>3.0.0</version>
             <configuration>
-                <descriptorRefs>
-                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRefs>
-                <archive>
-                    <manifest>
-                        <mainClass>de.drewing.comic.layout.Script2Layout</mainClass>
-                    </manifest>
-                </archive>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+              <archive>
+                <manifest>
+                  <mainClass>de.drewing.comic.layout.Script2Layout</mainClass>
+                </manifest>
+              </archive>
             </configuration>
             <executions>
-                <execution>
-                    <id>make-assembly</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>single</goal>
-                    </goals>
-                </execution>
+              <execution>
+                <id>make-assembly</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+              </execution>
             </executions>
-        </plugin>
+          </plugin>
 
     </plugins>
   </build>
