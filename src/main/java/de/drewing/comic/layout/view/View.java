@@ -17,6 +17,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -45,6 +46,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+
+
+//import org.controlsfx.control.Notifications;
 
 import de.drewing.comic.layout.model.Config;
 
@@ -98,11 +102,21 @@ public class View {
     } );
     grid.add(selectDir,2,2);
 
-    final Button generatePages = new Button("Generate pages");
-    generatePages.setOnAction( e->{
-      generatePagesAction.actionPerformed(null);
+    final Button addImage = new Button("Add Shot");
+    addImage.setOnAction( e->{
+      save();
+      addShotModel();
+      updateDisplayedList();
     } );
-    grid.add(generatePages,3,2);
+    grid.add(addImage,3,2);
+
+    final Button save = new Button("Save current shot list");
+    save.setOnAction( e->{
+      save();
+      persistData();
+    } );
+    save.setLayoutX(100);
+    grid.add(save,4,2);
 
 		borderPane.setTop(grid);
     scene = new Scene(borderPane, 800, 600);
@@ -114,7 +128,7 @@ public class View {
   }
 
   public void showNotification( final String msg) {
-    System.out.println(msg);
+    //Notifications.create().title("").text(msg).showError();
   }
 
   public String pickDir() {
@@ -149,28 +163,22 @@ public class View {
     scrolledGrid.setHgap(10);
     scrolledGrid.setVgap(10);
 
-    final GridPane left= new GridPane();
-    left.setHgap(10);
-    left.setVgap(10);
-    left.setPadding(new Insets(10, 10, 10, 10));
+    final GridPane bottom = new GridPane();
+    bottom.setAlignment(Pos.CENTER_RIGHT);
+    bottom.setHgap(10);
+    bottom.setVgap(10);
+    bottom.setPadding(new Insets(10, 10, 10, 10));
 
-    borderPane.setLeft(left);
+    borderPane.setBottom(bottom);
 
-    final Button addImage = new Button("Add Shot");
-    addImage.setOnAction( e->{
-      save();
-      addShotModel();
-      updateDisplayedList();
+    final Button generatePages = new Button("Generate pages (might take a while)");
+    generatePages.setOnAction( e->{
+      generatePagesAction.actionPerformed(null);
     } );
-    left.add(addImage,1,1);
+    generatePages.setStyle("-fx-background-color: #AAAAAA;");
 
-    final Button save = new Button("save");
-    save.setOnAction( e->{
-      save();
-      persistData();
-    } );
-    save.setLayoutX(100);
-    left.add(save,1,2);
+    bottom.add(generatePages,3,2);
+
 
     final ScrollPane center = new ScrollPane();
     final GridPane scrooledGrid = new GridPane();

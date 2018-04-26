@@ -70,6 +70,7 @@ public class GeneratePages implements ActionListener {
       // do nothing, user has already seen a notification
       // about where the generated files are.
     }
+    System.exit(0);
   }
 
   public void setView (final View view) {
