@@ -11,4 +11,4 @@ app:
 	mvn jfx:native
 
 jar:
-	mvn package appbundle:bundle
+	mvn clean compile assembly:single
